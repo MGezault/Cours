@@ -1,0 +1,57 @@
+body{
+  margin: 5em;
+}
+
+ul{  
+  padding: 0;
+}
+
+li{
+  margin-right: 2em;
+  margin-top: 1em;
+}
+
+header {
+  border-bottom : 1px #000000 solid;
+}
+
+main{
+  padding-top: 2em;
+}
+
+article{
+  margin-right: 20%;
+}
+
+footer{
+  border-top : 4px #000000 solid;
+  padding-top: 1em;
+}
+
+footer > p{
+  margin: 0;
+}
+
+ul{
+  list-style-type: none;
+}
+
+h1>span{
+  display: block;
+  color: grey;
+  font-style: italic;
+}
+
+a{
+  font-weight: bold;
+  text-decoration: none;
+}
+
+h1{
+  font-size : 400%;
+  border-bottom : 4px #000000 solid;
+}
+img{
+  width: 20px;
+
+}

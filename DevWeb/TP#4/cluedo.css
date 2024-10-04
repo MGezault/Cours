@@ -1,0 +1,30 @@
+.detournee{
+    text-decoration: underline;
+}
+
+.contandante{
+    font-weight: bold;
+}
+
+h1,section>h3,h2{
+    color: red;
+}
+
+ul ul{
+    list-style-type: none;
+}
+#armes>ul{
+    color : lime;
+}
+
+#armes>ul ul{
+    color : blue
+}
+
+article img{
+    width : 1em;
+}
+
+aside img{
+    width : 20vw;
+}

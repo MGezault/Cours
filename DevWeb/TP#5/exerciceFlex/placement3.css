@@ -1,0 +1,10 @@
+body{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+section,header,footer{
+    flex-basis: 50%;
+    flex-grow: 1;
+}
