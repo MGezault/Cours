@@ -1,0 +1,8 @@
+html{
+    background-color: lightgrey;
+}
+header,footer{ background-color: lightyellow; }
+
+nav,aside{ background-color: lightcoral; }
+
+article{ background-color: lightskyblue; }
