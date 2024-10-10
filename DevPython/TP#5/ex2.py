@@ -8,9 +8,10 @@ chaîne de caractères.
     Returns:
         int: l'indice du premier chiffre
     """    
-    #Pour chaque tour de boucle, indice vaudra le caractère de chaine au tour de boucle correspondant
+    #Pour chaque tour de boucle, indice vaudra le caractère de chaine au tour de boucle correspondant que l'on testera pour 
+    # savoir s'il est un chiffre 
     for indice in range(len(chaine)):
-        if chaine[indice].isnumeric():
+        if "0"<=chaine[indice]<="9":
             return indice
     return None
 
