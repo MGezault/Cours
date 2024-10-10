@@ -887,10 +887,13 @@ def max_emmission(liste_activites):
     Returns:
         tuple: l'activité avec le plus grand bilan carbone
     """
-    max_em = None
-    for element in liste_activites:
-        if max_em is None or element[3]> max_em[3]:
-            max_em = element
+    try:
+        max_em = liste_activites[0]
+        for element in liste_activites[1:]:
+            if element[3]> max_em[3]:
+                max_em = element
+    except:
+        max_em = None
     return max_em
 
 
@@ -917,12 +920,16 @@ def filtre(liste_activites, num_critere, val_critere):
     Args:
         liste_activites (list): une liste d'activites
         num_critere (int): le numéro du critère
-        val_critere (int): la valeur du critère
+        val_critere (str): la valeur du critère
 
     Returns:
         list: la liste des activites qui vérifient le critère
     """
-    ...
+    activites_verifiees= []
+    for activites in liste_activites:
+        if activites[num_critere]== val_critere:
+            activites_verifiees.append(activites)
+    return activites_verifiees
 
 def cumul_emmissions(liste_activites):
     """
@@ -958,7 +965,11 @@ def est_bien_triee(liste_activites):
     Returns:
         bool: True si la liste est triée chronologiquement, False sinon
     """
-    ...
+    for i_activites in range(len(liste_activites)-1):
+        if not((liste_activites[i_activites])[1] <(liste_activites[i_activites+1])[1]):
+            return False
+    return True
+        
 
 def liste_des_types(liste_activites):
     """
@@ -970,7 +981,11 @@ def liste_des_types(liste_activites):
     Returns:
         list: une liste des types d'activité présents dans une liste d'activités
     """
-    ...
+    types_activites=[]
+    for activites in liste_activites:
+        if not(activites[3] in types_activites):
+            types_activites.append(activites[3])
+    return types_activites
 
 def liste_des_personnes(liste_activites):
     """
@@ -982,7 +997,11 @@ def liste_des_personnes(liste_activites):
     Returns:
         list: une liste des personnes présentes dans une liste d'activités
     """
-    ...
+    personnes_activites=[]
+    for activites in liste_activites:
+        if not(activites[0]in personnes_activites):
+            personnes_activites.append(activites[0])
+    return personnes_activites
     
 def fusionner_activites(liste_activites1, liste_activites2):
     """
@@ -995,7 +1014,15 @@ def fusionner_activites(liste_activites1, liste_activites2):
     Returns:
         list: la liste d'activités fusionnée
     """
-    ...
+    if ((liste_activites1[0])[1])<((liste_activites2[0])[1]):
+        for activites in liste_activites2:
+            liste_activites1.append(liste_activites2)
+        return liste_activites1
+    else:
+        for activites in liste_activites1:
+            liste_activites2.append(liste_activites1[0])
+        return liste_activites2
+
 
 def premiere_apparition_type(liste_activites, type_act):
     """
