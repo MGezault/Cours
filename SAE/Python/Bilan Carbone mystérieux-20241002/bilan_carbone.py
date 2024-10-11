@@ -887,7 +887,12 @@ def max_emmission(liste_activites):
     Returns:
         tuple: l'activité avec le plus grand bilan carbone
     """
-    ...
+    max_em = None
+    for element in liste_activites:
+        if max_em is None or element[3]> max_em[3]:
+            max_em = element
+    return max_em
+
 
 def filtre_par_prenom(liste_activites, prenom):
     """
@@ -899,7 +904,12 @@ def filtre_par_prenom(liste_activites, prenom):
     Returns:
         list: la liste des activites effectuées par l'usager prenom 
     """
-    ...
+    liste = []
+    for element in liste_activites:
+        if liste_activites[0]== prenom:
+            liste.append(element)
+    return liste 
+
 
 def filtre(liste_activites, num_critere, val_critere):
     """
@@ -923,7 +933,10 @@ def cumul_emmissions(liste_activites):
     Returns:
         int: le bilan carbone des activites
     """
-    ...
+    total = 0
+    for elem in liste_activites:
+        total += elem[3]
+    return total
 
 def plus_longue_periode_emmissions_decroissantes(liste_activites):
     """

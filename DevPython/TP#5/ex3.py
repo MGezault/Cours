@@ -16,12 +16,31 @@ def est_croissante(liste):
     return True
 
 def depasse_seuil(liste,seuil):
+    """Indique si la somme des éléments d’une liste de nombres dépasse un
+seuil
+
+    Args:
+        liste (list): la liste que l'on veut additionner
+        seuil (int): le seuil que l'on veut comparer à la somme d'une liste
+
+    Returns:
+        bool: Si la somme des éléments d'une liste dépasse le seuil
+    """
     total = 0
     for nombre in liste:
         total += nombre
     return total> seuil
 
 def verifie_email(chaine):
+    """Vérifie qu’une chaîne de caractères correspond à une adresse e-mail
+potentielle
+
+    Args:
+        chaine (str): la chaine que l'on veut analyser
+
+    Returns:
+        bool: Si la chaine est une adresse email valide
+    """
     tournant = None
     nb_aro = 0
     email = False
