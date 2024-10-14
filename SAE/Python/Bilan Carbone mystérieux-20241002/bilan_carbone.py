@@ -337,7 +337,13 @@ liste5 = [
     ('Titouan', '2024-09-19', 41.76, 'type1'),
     ('Titouan', '2024-09-20', 27.84, 'type1'),
     ('Titouan', '2024-09-21', 2.61, 'type1'),
-    ('Titouan', '2024-09-22', 25.23, 'type1'),
+    ('Titouan', '2024-09-22', 25.23def test_filtre_par_prenom():
+    assert bc.filtre_par_prenom([], 'Lucas') == []
+    assert bc.filtre_par_prenom([('Lucas', '2024-09-01', 67.2, 'type3'), ('David', '2024-09-02', 70.08, 'type3')], 'Lucas') == [('Lucas', '2024-09-01', 67.2, 'type3')]
+    assert bc.filtre_par_prenom(bc.liste1, 'David') == [('David', '2024-09-26', 18, 'type1'), ('David', '2024-09-27', 21, 'type2'), ('David', '2024-09-28', 17, 'type3'), ('David', '2024-09-29', 23, 'type4')]
+
+
+test_filtre_par_prenom(), 'type1'),
     ('Titouan', '2024-09-23', 44.37, 'type1'),
     ('Titouan', '2024-09-24', 21.75, 'type1'),
     ('Titouan', '2024-09-25', 6.96, 'type1'),
@@ -890,7 +896,7 @@ def max_emmission(liste_activites):
     try:
         max_em = liste_activites[0]
         for element in liste_activites[1:]:
-            if element[3]> max_em[3]:
+            if element[2]> max_em[2]:
                 max_em = element
     except:
         max_em = None
@@ -909,7 +915,7 @@ def filtre_par_prenom(liste_activites, prenom):
     """
     liste = []
     for element in liste_activites:
-        if liste_activites[0]== prenom:
+        if element[0]== prenom:
             liste.append(element)
     return liste 
 
@@ -942,7 +948,7 @@ def cumul_emmissions(liste_activites):
     """
     total = 0
     for elem in liste_activites:
-        total += elem[3]
+        total += float(elem[2])
     return total
 
 def plus_longue_periode_emmissions_decroissantes(liste_activites):
@@ -954,7 +960,19 @@ def plus_longue_periode_emmissions_decroissantes(liste_activites):
     Returns:
         int: la longueur de la plus longue suite d'emmissions décroissantes
     """
-    ...
+    periode =0
+    periode_max=0
+    if liste_activites != []:
+        for i_activites in range(len(liste_activites[1:])):
+            if (liste_activites[i_activites-1])[2]> (liste_activites[i_activites])[2]:
+                periode +=1
+            else:
+                if periode_max<periode:
+                    periode_max = periode
+                periode = 0
+    return periode_max
+
+            
     
 def est_bien_triee(liste_activites):
     """
@@ -1014,14 +1032,23 @@ def fusionner_activites(liste_activites1, liste_activites2):
     Returns:
         list: la liste d'activités fusionnée
     """
-    if ((liste_activites1[0])[1])<((liste_activites2[0])[1]):
-        for activites in liste_activites2:
-            liste_activites1.append(liste_activites2)
-        return liste_activites1
+    listetemp1= liste_activites1
+    listetemp2= liste_activites2
+    listetriee= []
+    while (len(listetemp1)!=0) and (len(listetemp2)!=0):
+        if est_avant(listetemp1[0],listetemp2[0]):
+            listetriee.append(listetemp1[0])
+            listetemp1=listetemp1[1:]
+        else:
+            listetriee.append(listetemp2[0])
+            listetemp2=listetemp2[1:]
+    if (len(listetemp1))==0:
+        for elem in listetemp2:
+            listetriee.append(elem)
     else:
-        for activites in liste_activites1:
-            liste_activites2.append(liste_activites1[0])
-        return liste_activites2
+        for elem in listetemp1:
+            listetriee.append(elem)
+    return listetriee
 
 
 def premiere_apparition_type(liste_activites, type_act):
@@ -1035,9 +1062,12 @@ def premiere_apparition_type(liste_activites, type_act):
     Returns:
         str: la date de la première apparition du type d'activité
     """
-    ...
+    for activites in liste_activites:
+        if activites[3]== type_act:
+            return activites[1]
+    return None
 
-def recherche_activite_dichotomique(prenom, jour, type, liste_activites):
+def recherche_activite_dichotomique(prenom, jour, type_act, liste_activites):
     """
     Recherche une activité dans une liste d'activités triée
     
@@ -1050,7 +1080,18 @@ def recherche_activite_dichotomique(prenom, jour, type, liste_activites):
     Returns:
         tuple: l'activité recherchée
     """
-    ...
+    debut = 0
+    fin = len(liste_activites)
+    if liste_activites != []:
+        while debut<= fin :
+            milieu = (debut+fin)//2
+            if (liste_activites[milieu])[0] == prenom  and (liste_activites[milieu])[1] == jour  and (liste_activites[milieu])[3] == type_act:
+                return (liste_activites[milieu])
+            elif est_avant(liste_activites[milieu],(prenom,jour,0,type_act)):
+                debut = milieu
+            else: 
+                fin = milieu
+    return None
 
 def charger_activites(nom_fichier):
     """
@@ -1062,7 +1103,10 @@ def charger_activites(nom_fichier):
     Returns:
         list: la liste d'activités du fichier
     """
-    ...
+    listefichier= open( nom_fichier,'r')
+    listefichier.readline()
+    nom_fichier.close()
+    return listefichier
 
 def sauver_activites(nom_fichier, liste_activites):
     """
