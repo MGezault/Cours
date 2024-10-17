@@ -8,7 +8,7 @@ def est_croissante(liste):
         booléen : Oui ou Non si la liste est croissante
     """    
     prec = None
-    #Pour chaque tour de boucle, prec vaudra la valeur précédente rencontrée dans la liste afin de la comparé à la nouvelle
+    #Pour chaque tour de boucle, la boucle est triée dans l'ordre croissante
     for elem in liste:
         if (prec is None) or (prec <= elem)  :
             prec = elem
@@ -28,7 +28,7 @@ seuil
         bool: Si la somme des éléments d'une liste dépasse le seuil
     """
     total = 0
-    #Pour chaque tour de boucle, total vaudra la somme des nombre rencontrés au tour de boucle correspondant
+    #Pour chaque tour de boucle, total vaudra la somme des i premiers éléments de la liste
     for nombre in liste:
         total += nombre
     return total> seuil
@@ -48,8 +48,8 @@ potentielle
     email = False
     if len(chaine)>0:
         if not ((chaine[0]=="@") or (chaine[len(chaine)-1]== ".")):
-            #Pour chaque tour de boucle, nb_aro vaudra le nombre d'arobase rencontré jusqu'à présent et tournant changera de valeur 
-            #si nous rencontrons un point après un arobase
+            #Pour chaque tour de boucle, nb_aro compte le nombre d'arobases rencontrées jusqu'à l'index correspondante,
+            # et tournant indique si un point a été trouvé après un arobase.
             for cara in range(len(chaine)):
                 if (chaine[cara] == " ") or (nb_aro> 1):
                     return False

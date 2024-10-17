@@ -8,8 +8,7 @@ chaîne de caractères.
     Returns:
         int: l'indice du premier chiffre
     """    
-    #Pour chaque tour de boucle, indice vaudra le caractère de chaine au tour de boucle correspondant que l'on testera pour 
-    # savoir s'il est un chiffre 
+    #Pour chaque tour de boucle, les caractères de chaine de l'index 0 à i-1 ne sont pas des chiffres.
     for indice in range(len(chaine)):
         if "0"<=chaine[indice]<="9":
             return indice
@@ -25,9 +24,8 @@ def trouve_pop(liste_ville,liste_pop,ville):
 
     Returns:
         int: la population de la ville cherchée
-    """    
-    #Pour chaque tour de boucle, indice vaudra l'indice du tour de boucle correspondant 
-    #liste_villes[indice] vaudra le caractère de chaine au tour de boucle correspondant
+    """  
+    #Pour chaque tour de boucle, les villes de liste_ville de l'index 0 à i-1 n'ont pas été trouvées égales à ville
     for indice in range(len(liste_ville)):
         if liste_ville[indice] == ville :
             return liste_pop[indice]

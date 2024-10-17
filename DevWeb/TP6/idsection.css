@@ -1,0 +1,25 @@
+.banniere{
+    width: 100%;
+    height: 100%;
+}
+
+#personnage1{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+#personnage2{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.vi,.vander{
+    width:  30% ;
+    margin-left: 5px;
+}
+.texte-personnage1,.texte-personnage2 {
+    flex-basis: 70%;
+    display: flex;
+    flex-wrap: wrap;
+}
