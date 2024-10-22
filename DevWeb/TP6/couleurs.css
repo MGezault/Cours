@@ -11,7 +11,7 @@ nav{
 
 }
 
-#personnage1> p,#personnage2> p{
+#personnage1 p,#personnage2 p{
 
     background-color: violet;
 }

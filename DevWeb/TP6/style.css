@@ -22,6 +22,7 @@ nav{
 ul{
     display: flex;
     list-style-type: None;
+    flex-wrap: nowrap;
 }
 li{
     text-align: center;
@@ -33,22 +34,21 @@ article{
     flex-basis: 70%;
     flex-grow: 1;
 }
-#personnage1 > h2,#personnage2 > h2 {
+#personnage1 h2,#personnage2 h2 {
     text-align: center;
+    height: 20 px;
+    flex-basis: 65%;
+    flex-grow: 1;
 }
 
 aside{
     flex-basis: 25%;
     border: solid;
+    flex-grow: 0;
 }
 
 footer{
     border:solid;
     height: 100px;
     flex-basis: 100%;
-}
-
-.texte-personnage1> h2,.texte-personnage2> h2{
-    flex-basis: 65%;
-    flex-grow: 1;
 }
