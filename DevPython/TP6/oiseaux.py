@@ -17,7 +17,7 @@ comptage3 = [0, 0, 4, 3, 2, 1, 2, 4]
 observations1 = [("Merle", 2), ("Moineau", 5), ("Pic vert", 1), ("Pie", 2),
                  ("Rouge-gorge", 3), ("Tourterelle", 5)]
 
-observations2 = [("Merle", 2), ("Mésange", 1), ("Moineau", 3),
+observations2 = [("Merle", 2), ("Moineau", 1), ("Mésange", 3),
                  ("Pinson", 3), ("Tourterelle", 5), ("Rouge-gorge", 1)]
 
 observations3 = [("Mésange", 4), ("Pic vert", 3), ("Pie", 2), ("Pinson", 1),

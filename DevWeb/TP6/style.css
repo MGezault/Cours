@@ -38,30 +38,66 @@ article{
 
 article h2 {
     text-align: center;
-    height: 50px;
-    flex-basis:80%;
+    height: 30px;
+    flex-basis:20%;
     flex-grow: 0;
 }
 
 article p {
     flex-basis: 80%;
     flex-grow: 0;
-    height: 200px;
+    height: 150px;
     font-family: 'MedievalSharp', cursive;
     font-size: 23px;
-    border: solid;
-    border-radius: 10%;
     padding: 20px;
 }
 
+
+article p , article h2{
+    border: solid;
+    border-radius: 10%;
+}
+
 aside{
-    flex-basis: 25%;
+    flex-basis: 20%;
     border: solid;
     flex-grow: 0;
 }
 
 footer{
+    margin-top: 20px;
     border:solid;
-    height: 100px;
+    border-radius: 10%;
+    height: 50px;
     flex-basis: 100%;
+    text-align: center;
+}
+aside p {
+    padding: 5px;
+    font-size: 18px;
+}
+
+aside section{
+margin-bottom: 50px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    border: 2px solid;
+    text-align: center;
+    font-size: large;
+}
+
+td > a {
+    color: #5B9BD5;
+}
+
+aside h2{
+    text-align: center;
+    text-decoration: underline;
 }

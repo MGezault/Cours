@@ -38,14 +38,26 @@ def test_max_observations():
 
 
 def test_moyenne_oiseaux_observes():
-    assert oiseaux.moyenne_oiseaux_observes(...)==...
+    assert mg.moyenne_oiseaux_observes([])==None
+    assert mg.moyenne_oiseaux_observes(oiseaux.observations1)==3.0
+    assert mg.moyenne_oiseaux_observes(oiseaux.observations2)==2.5
+    assert mg.moyenne_oiseaux_observes(oiseaux.observations3)==8/3
+
 
 def test_total_famille():
-    assert oiseaux.total_famille(...)==...
+    assert mg.total_famille([],[],"Picidae")==0
+    assert mg.total_famille(oiseaux.observations2,oiseaux.oiseaux,"Batmobile")==0
+    assert mg.total_famille(oiseaux.observations2,oiseaux.oiseaux,"Passereau")==8
+    assert mg.total_famille(oiseaux.observations3,oiseaux.oiseaux,"Colombidé")==4
+
 
 
 def test_construire_liste_observations():
-    assert oiseaux.construire_liste_observations(...)==...
+    assert mg.construire_liste_observations(oiseaux.oiseaux,oiseaux.comptage1)==oiseaux.observations1
+    assert mg.construire_liste_observations(oiseaux.oiseaux,oiseaux.comptage2)==oiseaux.observations2
+    assert mg.construire_liste_observations(oiseaux.oiseaux,oiseaux.comptage3)==oiseaux.observations3
+    assert mg.construire_liste_observations([],[])==[]
+
 
 def test_creer_ligne_sup():
     assert oiseaux.creer_ligne_sup(...)==...
@@ -53,5 +65,4 @@ def test_creer_ligne_sup():
 def test_creer_ligne_noms_oiseaux():
     assert oiseaux.creer_ligne_noms_oiseaux(...)==...
 
-
-
+assert mg.construire_liste_observations(oiseaux.oiseaux,oiseaux.comptage2)==oiseaux.observations2

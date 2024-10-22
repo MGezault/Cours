@@ -15,6 +15,8 @@
     width: 300px; 
     margin: 20px; 
     border-radius: 10px;
+    border: solid;
+    
 }
 
 .texte1,.texte2 {
