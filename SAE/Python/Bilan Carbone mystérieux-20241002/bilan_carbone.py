@@ -1116,7 +1116,9 @@ def sauver_activites(nom_fichier, liste_activites):
         nom_fichier (str): le nom du fichier CSV où sauvegarder les activités
         liste_activites (list): la liste d'activités à sauvegarder
     """
-    ...
+    fichier=open(nom_fichier,'x')
+    fichier.write("")
+    for 
 
 # ---------------------------------------------------------------------------------------------
 # Dictionnaire python (structure de données non-encore étudiée en cours)
