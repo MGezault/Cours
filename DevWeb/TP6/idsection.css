@@ -4,12 +4,24 @@
 }
 
 #personnage1,#personnage2{
-    display: flex;
-    flex-wrap: wrap;
+    flex-basis: 50%;
+    display  : flex;
+    flex-wrap: nowrap;
     margin-bottom: 20px;
 }
 
 .vi,.vander{
-    width:  30% ;
-    margin-left: 5px;
+    flex-basis: 50%;
+    width: 300px; 
+    margin: 20px; 
+    border-radius: 10px;
+}
+
+.texte1,.texte2 {
+    display  : flex;
+    flex-wrap: wrap;    
+}
+
+.texte2{
+    justify-content: right;
 }

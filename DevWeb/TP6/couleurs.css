@@ -6,13 +6,11 @@ nav{
     background-color: blanchedalmond;
 }
 
-.texte-personnage1 > h2,.texte-personnage2 >h2{
-    background-color: red;
-
-}
-
 #personnage1 p,#personnage2 p{
 
-    background-color: violet;
+    background-color: #f8f0d5;
 }
 
+main{
+    background-color:floralwhite ;
+}
