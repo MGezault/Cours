@@ -337,13 +337,7 @@ liste5 = [
     ('Titouan', '2024-09-19', 41.76, 'type1'),
     ('Titouan', '2024-09-20', 27.84, 'type1'),
     ('Titouan', '2024-09-21', 2.61, 'type1'),
-    ('Titouan', '2024-09-22', 25.23def test_filtre_par_prenom():
-    assert bc.filtre_par_prenom([], 'Lucas') == []
-    assert bc.filtre_par_prenom([('Lucas', '2024-09-01', 67.2, 'type3'), ('David', '2024-09-02', 70.08, 'type3')], 'Lucas') == [('Lucas', '2024-09-01', 67.2, 'type3')]
-    assert bc.filtre_par_prenom(bc.liste1, 'David') == [('David', '2024-09-26', 18, 'type1'), ('David', '2024-09-27', 21, 'type2'), ('David', '2024-09-28', 17, 'type3'), ('David', '2024-09-29', 23, 'type4')]
-
-
-test_filtre_par_prenom(), 'type1'),
+    ('Titouan', '2024-09-22', 25.23, 'type1'),
     ('Titouan', '2024-09-23', 44.37, 'type1'),
     ('Titouan', '2024-09-24', 21.75, 'type1'),
     ('Titouan', '2024-09-25', 6.96, 'type1'),
@@ -850,16 +844,9 @@ def est_avant(activite1, activite2):
     Returns:
         bool: True si activite1 est avant activite2, False sinon
     """
-    res= False
-    if activite1[3]<activite2[3]:
-        res= True
-    elif activite1[3]==activite2[3]:
-        if activite1[0]<activite2[0]:
-            res= True
-        elif activite1[0]==activite2[0]:
-            if activite1[1]<activite2[1]:
-                res = True
-    return (res)
+    if not(est_activite(activite1)and est_activite(activite2)):
+        return False
+    return ((activite1[3], activite1[0], activite1[1]) < (activite2[3], activite2[0], activite2[1]))
 
 def annee(activite):
     """
@@ -870,7 +857,13 @@ def annee(activite):
     Returns:
         str: l'année de l'activité
     """
-    return (activite[1][0]+activite[1][1]+activite[1][2]+activite[1][3]) #Je récupère chacun des chiffres de l'année à la main, ça me permet d'éviter une boucle 
+    if not(est_activite(activite)):
+         return None
+    annee = (activite[1][0]+activite[1][1]+activite[1][2]+activite[1][3]) #Je récupère chacun des chiffres de l'année à la main, ça me permet d'éviter une boucle 
+    
+    if annee.isnumeric():
+        return annee
+    return None
 
 def annee_mois(activite):
     """
@@ -881,8 +874,10 @@ def annee_mois(activite):
     Returns:
         str: l'année et le mois de l'activité
     """
+    if not(est_activite(activite)):
+         return False
     return (activite[1][0]+activite[1][1]+activite[1][2]+activite[1][3]+activite[1][4]+activite[1][5]+activite[1][6]) #Je récupère chacun des caractères à la main, ça me permet d'éviter une boucle 
-
+   
 
 def max_emmission(liste_activites):
     """
@@ -893,12 +888,12 @@ def max_emmission(liste_activites):
     Returns:
         tuple: l'activité avec le plus grand bilan carbone
     """
-    try:
+    try:# Je préfère mettre un try plutôt qu'un appel de fonction pour chaque élement afin de gagner en complexité
         max_em = liste_activites[0]
         for element in liste_activites[1:]:
             if element[2]> max_em[2]:
                 max_em = element
-    except:
+    except: 
         max_em = None
     return max_em
 
@@ -1032,21 +1027,23 @@ def fusionner_activites(liste_activites1, liste_activites2):
     Returns:
         list: la liste d'activités fusionnée
     """
-    listetemp1= liste_activites1
-    listetemp2= liste_activites2
     listetriee= []
-    while (len(listetemp1)!=0) and (len(listetemp2)!=0):
-        if est_avant(listetemp1[0],listetemp2[0]):
-            listetriee.append(listetemp1[0])
-            listetemp1=listetemp1[1:]
+    i = 0
+    j= 0
+
+    while i < len(liste_activites1) and j < len(liste_activites2):
+        if est_avant(liste_activites1[i], liste_activites2[j]):
+            listetriee.append(liste_activites1[i])
+            i += 1
         else:
-            listetriee.append(listetemp2[0])
-            listetemp2=listetemp2[1:]
-    if (len(listetemp1))==0:
-        for elem in listetemp2:
+            listetriee.append(liste_activites2[j])
+            j += 1
+
+    if (len(liste_activites1))==0:
+        for elem in liste_activites2:
             listetriee.append(elem)
     else:
-        for elem in listetemp1:
+        for elem in liste_activites1:
             listetriee.append(elem)
     return listetriee
 
@@ -1116,9 +1113,13 @@ def sauver_activites(nom_fichier, liste_activites):
         nom_fichier (str): le nom du fichier CSV où sauvegarder les activités
         liste_activites (list): la liste d'activités à sauvegarder
     """
-    fichier=open(nom_fichier,'x')
-    fichier.write("")
-    for 
+    fichier=open(nom_fichier,'a')
+    if fichier.readline() !=  ("Prénom,Date,Emissions_CO2 (g),Type_Activité"):
+        fichier.write("Prénom,Date,Emissions_CO2 (g),Type_Activité")
+    for activite in liste_activites:
+        ligne = (activite[0] + "," + activite[1] + "," + str(activite[2]) + "," + activite[3] + "\n")
+        fichier.write()
+    fichier.close()
 
 # ---------------------------------------------------------------------------------------------
 # Dictionnaire python (structure de données non-encore étudiée en cours)
@@ -1137,7 +1138,12 @@ def temps_activite(activite, co2_minute):
     Returns:
         float: la durée de l'activité en minutes
     """
-    ...
+    if (activite[3][4]<="4") and (activite[3][4]>="1"):
+        return (activite[2]/co2_minute[activite[3]])
+    return None
+
+
+
     
 def cumul_temps_activite(liste_activites, co2_minute):
     """
@@ -1149,4 +1155,19 @@ def cumul_temps_activite(liste_activites, co2_minute):
     Returns:
         int: le temps total passé à réaliser des activités
     """
-    ...
+    duree_totale=0
+    for activite in liste_activites:
+        duree_totale+=temps_activite(activite,co2_minute)
+    return duree_totale
+
+
+def est_activite(untuple):
+    """Indique si untuple respecte les conditions d'un tuple
+
+    Args:
+        untuple (tuple): Un tuple 
+
+    Returns:
+        bool : Renvoie True si untuple respecte les conditions, False s'il ne les respecte pas
+    """
+    return(isinstance(untuple,tuple) and (len(untuple)==4)and (isinstance(untuple[0],str)) and (isinstance(untuple[1],str)) and (isinstance(untuple[3],str)) and (len(untuple[1])==10)and (isinstance(untuple[2],float)))

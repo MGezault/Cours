@@ -7,15 +7,11 @@ header {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-nav {
+nav table {
     background-color: #2e2e2e;
 }
 
-nav ul li {
-    color: #ffcc00;
-}
-
-nav ul li a {
+nav table ,nav table  a{
     color: #ffcc00;
 }
 
@@ -30,5 +26,9 @@ h2 {
 footer {
     background-color: #2e2e2e;
     color: #f0f0f0;
+}
+
+#contact{
+    background-color:grey;
 }
 

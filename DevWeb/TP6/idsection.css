@@ -1,7 +1,4 @@
-.banniere{
-    width: 100%;
-    height: 100%;
-}
+
 
 #personnage1,#personnage2{
     flex-basis: 50%;
@@ -10,14 +7,6 @@
     margin-bottom: 20px;
 }
 
-.vi,.vander{
-    flex-basis: 50%;
-    width: 300px; 
-    margin: 20px; 
-    border-radius: 10px;
-    border: solid;
-    
-}
 
 .texte1,.texte2 {
     display  : flex;
@@ -26,4 +15,10 @@
 
 .texte2{
     justify-content: right;
+}
+
+#contact{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: last baseline;
 }

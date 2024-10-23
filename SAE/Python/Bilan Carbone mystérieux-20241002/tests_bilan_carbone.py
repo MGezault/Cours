@@ -12,10 +12,23 @@ import bilan_carbone as bc
 def test_est_avant():
     assert bc.est_avant(('Lucas', '2024-09-01', 67.2, 'type3'), ('Lucas', '2024-09-01', 67.2, 'type4')) == True
     assert bc.est_avant(('Lucas', '2024-09-01', 67.2, 'type4'), ('Lucas', '2024-09-01', 67.2, 'type3')) == False
+    # Nouveaux Asserts
+    assert not(bc.est_avant((),()))
+    assert not(bc.est_avant((),('Lucas', '2024-09-01', 67.2, 'type3')))
+    assert not(bc.est_avant(('Lucas', '2024-09-01', 67.2, 'type3'),("David","2024-09-01",6,"type1")))
+    assert not(bc.est_avant(('Lucas', '2024-01-02', 6.0, 'type3'),('Lucas', '2024-01-02', 6.0, 'type3')))
+    assert not(bc.est_avant(("Sheriff",78),('Lucas', '2024-01-02', 6.0, 'type3')))
+    assert not(bc.est_avant(('Lucas', '2024-09-01', 67.2, 'type3'),('Lucas', '2024-01-02', 6.0, 'type3')))
 
 def test_annee():
     assert bc.annee(('Lucas', '2024-09-01', 67.2, 'type3')) == '2024'
     assert bc.annee(('Lucas', '1999-12-27', 70.08, 'type3')) == '1999'
+    # Nouveaux Asserts
+    assert (bc.annee(('Lucas', '1999-12-27', 70.08))) is None
+    assert (bc.annee(('Lucas', '5', 70.08,"type2" )))==None
+    assert (bc.annee(("Sheriff",78))) is None
+    assert (bc.annee(('Lucas', '5648-12-27', 70.08, "type1"))) == "5648"
+    assert (bc.annee(())) is None
 
 def test_annee_mois():
     assert bc.annee_mois(('Lucas', '2024-10-01', 67.2, 'type3')) == '2024-10'
@@ -96,3 +109,4 @@ def test_cumul_temps_activite():
 # Ajoutez ici les tests manquants (vos propres fonctions le cas échéant)
 # ---------------------------------------------------------------------------------------------
 
+test_annee()
