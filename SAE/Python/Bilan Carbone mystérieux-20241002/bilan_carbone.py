@@ -832,7 +832,6 @@ liste6 = [
 # -----------------------------------------------------------------------------------------------------
 # Listes des fonctions à implémenter
 # -----------------------------------------------------------------------------------------------------
-
 def est_avant(activite1, activite2):
     """
     Retourne True si activite1 est avant activite2, False sinon
@@ -845,7 +844,7 @@ def est_avant(activite1, activite2):
         bool: True si activite1 est avant activite2, False sinon
     """
     if not(est_activite(activite1)) or not(est_activite(activite2)):
-        return False
+        return None
     return ((activite1[3], activite1[0], activite1[1]) < (activite2[3], activite2[0], activite2[1]))
 
 def annee(activite):
@@ -875,7 +874,7 @@ def annee_mois(activite):
         str: l'année et le mois de l'activité
     """
     if not(est_activite(activite)):
-         return False
+         return None
     return (activite[1][0]+activite[1][1]+activite[1][2]+activite[1][3]+activite[1][4]+activite[1][5]+activite[1][6]) #Je récupère chacun des caractères à la main, ça me permet d'éviter une boucle 
    
 
@@ -1037,14 +1036,12 @@ def fusionner_activites(liste_activites1, liste_activites2):
         else:
             listetriee.append(liste_activites2[ind2])
             ind2+=1
-    if (ind1<(len(liste_activites1)))==0:
-        for elem in liste_activites2:
+    if (ind1>=(len(liste_activites1))):
+        for elem in liste_activites2[ind2:]:
             listetriee.append(elem)
     else:
-        for elem in liste_activites1[ind2:]:
+        for elem in liste_activites1[ind1:]:
             listetriee.append(elem)
-    for elem in listetriee:
-        print(elem)
     return listetriee
 
 
@@ -1100,10 +1097,13 @@ def charger_activites(nom_fichier):
     Returns:
         list: la liste d'activités du fichier
     """
-    listefichier= open( nom_fichier,'r')
-    listefichier.readline()
-    nom_fichier.close()
-    return listefichier
+    with open(nom_fichier, 'r') as fichier:
+        #Je n'utilise pas .readline() car je l'utilise dans la fonction sauver_activites afin de vérifier que le fichier est déjà en forme
+        activites = []
+        for ligne in fichier:
+            activite = ligne.strip().split(',')
+            activites.append(activite)
+    return activites
 
 def sauver_activites(nom_fichier, liste_activites):
     """
