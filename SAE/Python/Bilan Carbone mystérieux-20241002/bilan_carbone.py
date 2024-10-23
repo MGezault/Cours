@@ -844,7 +844,7 @@ def est_avant(activite1, activite2):
     Returns:
         bool: True si activite1 est avant activite2, False sinon
     """
-    if not(est_activite(activite1)and est_activite(activite2)):
+    if not(est_activite(activite1)) or not(est_activite(activite2)):
         return False
     return ((activite1[3], activite1[0], activite1[1]) < (activite2[3], activite2[0], activite2[1]))
 
@@ -1028,23 +1028,23 @@ def fusionner_activites(liste_activites1, liste_activites2):
         list: la liste d'activités fusionnée
     """
     listetriee= []
-    i = 0
-    j= 0
-
-    while i < len(liste_activites1) and j < len(liste_activites2):
-        if est_avant(liste_activites1[i], liste_activites2[j]):
-            listetriee.append(liste_activites1[i])
-            i += 1
+    ind1=0
+    ind2=0
+    while (ind1<(len(liste_activites1))) and (ind2<(len(liste_activites2))):
+        if est_avant(liste_activites1[ind1],liste_activites2[ind2]):
+            listetriee.append(liste_activites1[ind1])
+            ind1+=1
         else:
-            listetriee.append(liste_activites2[j])
-            j += 1
-
-    if (len(liste_activites1))==0:
+            listetriee.append(liste_activites2[ind2])
+            ind2+=1
+    if (ind1<(len(liste_activites1)))==0:
         for elem in liste_activites2:
             listetriee.append(elem)
     else:
-        for elem in liste_activites1:
+        for elem in liste_activites1[ind2:]:
             listetriee.append(elem)
+    for elem in listetriee:
+        print(elem)
     return listetriee
 
 
@@ -1170,4 +1170,6 @@ def est_activite(untuple):
     Returns:
         bool : Renvoie True si untuple respecte les conditions, False s'il ne les respecte pas
     """
-    return(isinstance(untuple,tuple) and (len(untuple)==4)and (isinstance(untuple[0],str)) and (isinstance(untuple[1],str)) and (isinstance(untuple[3],str)) and (len(untuple[1])==10)and (isinstance(untuple[2],float)))
+    return(isinstance(untuple,tuple) and (len(untuple)==4)and (isinstance(untuple[0],str)) and (isinstance(untuple[1],str)) and (isinstance(untuple[3],str)) and (len(untuple[1])==10)and (isinstance(untuple[2],(float,int))))
+
+

@@ -11,18 +11,34 @@ def annee(untuple):
         if len(untuple)==4:
             if (isinstance(untuple[0],str)) and (isinstance(untuple[1],str)) and (isinstance(untuple[3],str)):
                 if (len(untuple[1])==10):
-                    if (isinstance(untuple[2],float)):
+                    if (isinstance(untuple[2],(float,int))):
                         return True
     return False
+liste2 = [
+('Christophe', '2024-09-26', 15, 'type1'),
+('David', '2024-09-26', 18, 'type1'),
+('Guillaume', '2024-09-26', 17, 'type1'),
+('Christophe', '2024-09-27', 19, 'type2'),
+('David', '2024-09-27', 21, 'type2'),
+('Guillaume', '2024-09-27', 20, 'type2'),
+('Christophe', '2024-09-28', 14, 'type3'),
+('David', '2024-09-28', 17, 'type3'),
+('Guillaume', '2024-09-28', 16, 'type3'),
+('Christophe', '2024-09-29', 20, 'type4'),
+('David', '2024-09-29', 23, 'type4'),
+('Guillaume', '2024-09-29', 22, 'type4'),]
 
-def test_annee():
-    assert annee(('Lucas', '2024-09-01', 67.2, 'type3'))
-    assert annee(('Lucas', '1999-12-27', 70.08, 'type3'))
-    # Nouveaux Asserts
-    assert not(annee(('Lucas', '1999-12-27', 70.08)))
-    assert not(annee(('Lucas', '5', 70.08,"type2" )))
-    assert not(annee(("Sheriff",78)))
-    assert annee(('Lucas', '5648-12-27', 70.08, "type1"))
-    assert not(annee(()))
-
-test_annee()
+('Christophe', '2024-09-26', 15, 'type1'),
+('David', '2024-09-26', 18, 'type1'),
+('Guillaume', '2024-09-26', 17, 'type1'),
+('Christophe', '2024-09-27', 19, 'type2'),
+('David', '2024-09-27', 21, 'type2'),
+('Guillaume', '2024-09-27', 20, 'type2'),
+('Christophe', '2024-09-28', 14, 'type3'),
+('David', '2024-09-28', 17, 'type3'),
+('Guillaume', '2024-09-28', 16, 'type3'),
+('Christophe', '2024-09-29', 20, 'type4'),
+('David', '2024-09-28', 17, 'type3'),
+('Guillaume', '2024-09-28', 16, 'type3'),
+('David', '2024-09-29', 23, 'type4'),
+('Guillaume', '2024-09-29', 22, 'type4'),

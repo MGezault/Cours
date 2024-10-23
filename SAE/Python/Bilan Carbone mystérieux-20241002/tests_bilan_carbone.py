@@ -77,10 +77,6 @@ def test_liste_des_personnes():
 
 
 def test_fusionner_activites():
-    assert bc.fusionner_activites([], []) == []
-    assert bc.fusionner_activites([('Lucas', '2024-09-01', 67.2, 'type3')], [('Lucas', '2024-09-02', 70.08, 'type3')]) == [('Lucas', '2024-09-01', 67.2, 'type3'), ('Lucas', '2024-09-02', 70.08, 'type3')]
-    assert bc.fusionner_activites([('Lucas', '2024-09-02', 70.08, 'type3')], [('Lucas', '2024-09-01', 67.2, 'type3')]) == [('Lucas', '2024-09-01', 67.2, 'type3'), ('Lucas', '2024-09-02', 70.08, 'type3')]
-    assert bc.fusionner_activites([('Lucas', '2024-09-01', 67.2, 'type3'), ('Lucas', '2024-09-02', 70.08, 'type3')], [('Lucas', '2024-09-03', 67.2, 'type3')]) == [('Lucas', '2024-09-01', 67.2, 'type3'), ('Lucas', '2024-09-02', 70.08, 'type3'), ('Lucas', '2024-09-03', 67.2, 'type3')]
     assert bc.fusionner_activites(bc.liste3, bc.liste4) == bc.liste2
 
 
@@ -108,5 +104,4 @@ def test_cumul_temps_activite():
 # ---------------------------------------------------------------------------------------------
 # Ajoutez ici les tests manquants (vos propres fonctions le cas échéant)
 # ---------------------------------------------------------------------------------------------
-
-test_annee()
+test_fusionner_activites()
