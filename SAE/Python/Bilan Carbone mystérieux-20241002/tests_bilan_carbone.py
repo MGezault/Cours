@@ -54,6 +54,11 @@ def test_filtre_par_prenom():
     assert bc.filtre_par_prenom([], 'Lucas') == []
     assert bc.filtre_par_prenom([('Lucas', '2024-09-01', 67.2, 'type3'), ('David', '2024-09-02', 70.08, 'type3')], 'Lucas') == [('Lucas', '2024-09-01', 67.2, 'type3')]
     assert bc.filtre_par_prenom(bc.liste1, 'David') == [('David', '2024-09-26', 18, 'type1'), ('David', '2024-09-27', 21, 'type2'), ('David', '2024-09-28', 17, 'type3'), ('David', '2024-09-29', 23, 'type4')]
+    #Nouveaux Asserts
+    assert bc.filtre_par_prenom(bc.liste1,"Matéo")== []
+    assert bc.filtre_par_prenom(bc.liste2,"Guillaume") == [('Guillaume', '2024-09-26', 17, 'type1'), ('Guillaume', '2024-09-27', 20, 'type2'), ('Guillaume', '2024-09-28', 16, 'type3'), ('Guillaume', '2024-09-29', 22, 'type4')]
+    assert bc.filtre_par_prenom([("Maria","2024-05-21",54,"type1"),("Marios","2023-13-31",12.6,"type3")],"Mario")==[]
+    assert bc.filtre_par_prenom(bc.liste5,"")==[]
 
 def test_filtre():
     assert bc.filtre([], 3, 'type1') == []

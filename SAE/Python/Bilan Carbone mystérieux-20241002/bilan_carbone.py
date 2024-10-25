@@ -908,9 +908,9 @@ def filtre_par_prenom(liste_activites, prenom):
         list: la liste des activites effectuées par l'usager prenom 
     """
     liste = []
-    for element in liste_activites:
-        if element[0]== prenom:
-            liste.append(element)
+    for activite in liste_activites:
+        if activite[0]== prenom:
+            liste.append(activite)
     return liste 
 
 
