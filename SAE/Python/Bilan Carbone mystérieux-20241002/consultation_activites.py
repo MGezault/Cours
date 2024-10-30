@@ -16,7 +16,6 @@ def programme_principal():
         if choixfinal in ("recherches","recherche","r"):
 
             choix = (input("Sur un individu ou sur un groupe ? ")).strip().lower()
-
             if choix in  ("invidu","individuel","un individu","une personne","quelqu'un","i"):
                 condition= False
                 while not(condition) : 
@@ -29,9 +28,21 @@ def programme_principal():
                 print("Voulez-vous faire des recherches sur une période de temps précises ? ")
                 ouinon= bc.oui_non()
                 if ouinon:
-                    print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
-                    debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
-                    fin = input("Quelle est la date de fin de période (sous forme YEAR-MM-DD) : ")
+                    condition3 = False
+                    while not(condition3):
+                        print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
+                        debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
+                        fin = input("Quelle est la date de fin de période (sous forme YEAR-MM-DD) : ")
+                        try:
+                            if not((debut[0]+debut[1]+debut[2]+debut[3]+debut[5]+debut[6]+debut[6]+debut[8]+debut[9]).isnumeric() and (fin[0]+fin[1]+fin[2]+fin[3]+fin[5]+fin[6]+fin[6]+fin[8]+fin[9]).isnumeric() and debut<fin and (debut[8]+debut[9])<31 and (debut[5]+debut[6])<12):
+                                print("")
+                                print("Veuillez entrer des dates valides s'il vous plait.")
+                                continue
+                        except:
+                            print("")
+                            print("Veuillez entrer des dates valides s'il vous plait.")
+                            continue
+                    
                     liste_visee= bc.creer_liste_date(bc.filtre_par_prenom(toutes_activites,prenom),debut,fin)
                 elif ouinon is None:
                     continue
@@ -39,7 +50,7 @@ def programme_principal():
                     liste_visee= bc.filtre_par_prenom(toutes_activites,prenom)
    
 
-            elif choix in ("groupe","tout le monde","global","tout","g"):
+            elif choix in ("groupe","tout le monde","global","tout","g","un groupe"):
                 print("Voulez vous créer votre propre groupe (oui) ou analyser la totalité des personnes (non) ?")
                 ouinon= bc.oui_non()
                 if ouinon:
@@ -67,13 +78,24 @@ def programme_principal():
                 else:
                     liste_visee = toutes_activites
                 
-
                 print("Voulez-vous faire des recherches sur une période de temps précises ? ")
                 ouinon=bc.oui_non()
                 if ouinon:
-                    print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
-                    debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
-                    fin = input("Quelle est la date de fin de période (sous forme YEAR-MM-DD) : ")
+                    condition3 = False
+                    while not(condition3):
+                        print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
+                        debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
+                        fin = input("Quelle est la date de fin de période (sous forme YEAR-MM-DD) : ")
+                        try:
+                            if not((debut[0]+debut[1]+debut[2]+debut[3]+debut[5]+debut[6]+debut[6]+debut[8]+debut[9]).isnumeric() and (fin[0]+fin[1]+fin[2]+fin[3]+fin[5]+fin[6]+fin[6]+fin[8]+fin[9]).isnumeric() and debut<fin and (debut[8]+debut[9])<31 and (debut[5]+debut[6])<12):
+                                print("")
+                                print("Veuillez entrer des dates valides s'il vous plait.")
+                                continue
+                        except:
+                            print("")
+                            print("Veuillez entrer des dates valides s'il vous plait.")
+                            continue
+                        condition3= True
                     liste_visee= bc.creer_liste_date(liste_visee,debut,fin)
                 elif ouinon is None:
                     continue
@@ -135,10 +157,13 @@ def programme_principal():
                     if bc.oui_non():
                         condition2= False
                         while not(condition2):
-                            print ("Souhaitez-vous obtenir des informations sur la croissance, la moyenne ou les extrémités ? ")
+                            if choix in ("groupe","tout le monde","global","tout","g","un groupe"):
+                                print ("Souhaitez-vous obtenir des informations sur la moyenne ou les extrémités ? ")
+                            else:
+                                print ("Souhaitez-vous obtenir des informations sur la croissance, la moyenne ou les extrémités ? ")
                             choixplus=(input("")).strip().lower()
 
-                            if choixplus in ("croissance","croissances","c"):
+                            if choixplus in ("croissance","croissances","c") and not( choix in ("groupe","tout le monde","global","tout","g","un groupe")):
                                 print("La longueur de la plus longue suite d'emmissions croissantes dans l'échantillon visé est : ",bc.plus_longue_periode_emmissions_croissantes(liste_visee),".",sep="")
                                 print("La longueur de la plus longue suite d'emmissions décroissantes dans l'échantillon visé est : ",bc.plus_longue_periode_emmissions_decroissantes(liste_visee),".",sep="")
 
@@ -146,7 +171,8 @@ def programme_principal():
                                 print("La moyenne des émissions sur l'échantillon demandé est : ", round(((totalem/len(liste_visee))*unites[umasse]),2),umasse,".",sep="")
                             elif choixplus in("extremite","extremites","minimum","minimums","maximum","maximums,","e","extrémités,'extrémité"):
 
-                                mini,maxi= bc.extremites(liste_visee)
+                                mini= bc.min_emmission(liste_visee)
+                                maxi=bc.max_emmission(liste_visee)
                                 print("L'activité la plus polluante parmi toutes celles analysées est : ", maxi,".",sep="")
                                 print("L'activité la moins polluante parmi toutes celles analysées est : ", mini,".",sep="")
 
@@ -194,5 +220,3 @@ def programme_principal():
             print("Il y a une erreur dans votre réponse, veuillez répondre 'quitter','recherche', ou 'unite'. ")
 
 programme_principal()
-
-        

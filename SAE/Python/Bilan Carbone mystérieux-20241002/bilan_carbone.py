@@ -1284,13 +1284,23 @@ def oui_non():
             print("Veuillez entrer 'oui' ou 'non'.")
     return res
 
-def extremites(liste_act):
+def min_emmission(liste_activites):
+    """
+    Retourne l'activité avec le plus petit bilan carbone
+    Args:
+        liste_activites (list): une liste d'activites
 
-    mini= None
-    maxi = None
-    for activites in liste_act:
-        if (mini is None ) or (mini[2]> activites[2]):
-            mini = activites
-        elif (maxi is None ) or (maxi[2]< activites[2]):
-            maxi = activites
-    return (mini,maxi)
+    Returns:
+        tuple: l'activité avec le plus petit bilan carbone
+    """
+    min_em = None
+    try:
+# Je préfère mettre un try plutôt qu'appeler est_activité pour chaque élement afin de gagner en complexité surtout que dans le programme principal, les activités 
+# auront déjà été vérifiées
+        for element in liste_activites:
+            if (min_em is None) or (element[2]> min_em[2]):
+                min_em = element
+    except: 
+        print("Votre liste d'activité n'est pas correcte. ")
+        min_em = None
+    return min_em
