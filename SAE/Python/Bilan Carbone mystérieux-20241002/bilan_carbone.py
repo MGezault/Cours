@@ -887,12 +887,15 @@ def max_emmission(liste_activites):
     Returns:
         tuple: l'activité avec le plus grand bilan carbone
     """
-    try:# Je préfère mettre un try plutôt qu'un appel de fonction pour chaque élement afin de gagner en complexité
-        max_em = liste_activites[0]
-        for element in liste_activites[1:]:
-            if element[2]> max_em[2]:
+    max_em = None
+    try:
+# Je préfère mettre un try plutôt qu'appeler est_activité pour chaque élement afin de gagner en complexité surtout que dans le programme principal, les activités 
+# auront déjà été vérifiées
+        for element in liste_activites:
+            if (max_em is None) or (element[2]> max_em[2]):
                 max_em = element
     except: 
+        print("Votre liste d'activité n'est pas correcte. ")
         max_em = None
     return max_em
 
@@ -909,7 +912,7 @@ def filtre_par_prenom(liste_activites, prenom):
     """
     liste = []
     for activite in liste_activites:
-        if activite[0]== prenom:
+        if activite[0].lower()== prenom.lower():
             liste.append(activite)
     return liste 
 
@@ -926,9 +929,16 @@ def filtre(liste_activites, num_critere, val_critere):
         list: la liste des activites qui vérifient le critère
     """
     activites_verifiees= []
-    for activites in liste_activites:
-        if activites[num_critere]== val_critere:
-            activites_verifiees.append(activites)
+    try:
+        for activites in liste_activites:
+            if activites[num_critere]== val_critere:
+                activites_verifiees.append(activites)
+    except:
+        if (num_critere >3) or (num_critere<0):
+            print("Vous n'avez pas entré un numéro de critère valide (entre 0 et 3).")
+        else:
+            print("La liste d'activité fournie n'est pas correcte.")    
+            activites_verifiees = []
     return activites_verifiees
 
 def cumul_emmissions(liste_activites):
@@ -941,8 +951,10 @@ def cumul_emmissions(liste_activites):
         int: le bilan carbone des activites
     """
     total = 0
-    for elem in liste_activites:
-        total += float(elem[2])
+    for (_,_,quantite,_) in liste_activites:
+        if quantite >0: 
+    #Je met ce test pour éviter qu'un valeur négative soit glissée dans les émissions et qu'elle fausse les calculs puisque une activité ne peut pas avoir de valeur négative
+            total += quantite
     return total
 
 def plus_longue_periode_emmissions_decroissantes(liste_activites):
@@ -956,7 +968,7 @@ def plus_longue_periode_emmissions_decroissantes(liste_activites):
     """
     periode =0
     periode_max=0
-    if liste_activites != []:
+    try:
         for i_activites in range(len(liste_activites[1:])):
             if (liste_activites[i_activites-1])[2]> (liste_activites[i_activites])[2]:
                 periode +=1
@@ -964,6 +976,10 @@ def plus_longue_periode_emmissions_decroissantes(liste_activites):
                 if periode_max<periode:
                     periode_max = periode
                 periode = 0
+    except:
+        print("La liste d'activité fournie est incorrecte. ")
+    if periode_max<periode:
+        periode_max = periode
     return periode_max
 
             
@@ -977,8 +993,9 @@ def est_bien_triee(liste_activites):
     Returns:
         bool: True si la liste est triée chronologiquement, False sinon
     """
+
     for i_activites in range(len(liste_activites)-1):
-        if not((liste_activites[i_activites])[1] <(liste_activites[i_activites+1])[1]):
+        if not((liste_activites[i_activites])[1] <=(liste_activites[i_activites+1])[1]):
             return False
     return True
         
@@ -994,9 +1011,12 @@ def liste_des_types(liste_activites):
         list: une liste des types d'activité présents dans une liste d'activités
     """
     types_activites=[]
-    for activites in liste_activites:
-        if not(activites[3] in types_activites):
-            types_activites.append(activites[3])
+    try:
+        for activites in liste_activites:
+            if not(activites[3] in types_activites):
+                types_activites.append(activites[3])
+    except:
+        types_activites = []
     return types_activites
 
 def liste_des_personnes(liste_activites):
@@ -1011,8 +1031,11 @@ def liste_des_personnes(liste_activites):
     """
     personnes_activites=[]
     for activites in liste_activites:
-        if not(activites[0]in personnes_activites):
-            personnes_activites.append(activites[0])
+        if est_activite(activites):
+            if not(activites[0] in personnes_activites):
+                personnes_activites.append(activites[0])
+        else:
+            return []
     return personnes_activites
     
 def fusionner_activites(liste_activites1, liste_activites2):
@@ -1033,15 +1056,17 @@ def fusionner_activites(liste_activites1, liste_activites2):
         if est_avant(liste_activites1[ind1],liste_activites2[ind2]):
             listetriee.append(liste_activites1[ind1])
             ind1+=1
+        elif est_avant(liste_activites1[ind1],liste_activites2[ind2]) is None:
+            return None
         else:
             listetriee.append(liste_activites2[ind2])
             ind2+=1
     if (ind1>=(len(liste_activites1))):
-        for elem in liste_activites2[ind2:]:
-            listetriee.append(elem)
+        for activites in liste_activites2[ind2:]:
+            listetriee.append(activites)
     else:
-        for elem in liste_activites1[ind1:]:
-            listetriee.append(elem)
+        for activites in liste_activites1[ind1:]:
+            listetriee.append(activites)
     return listetriee
 
 
@@ -1056,6 +1081,8 @@ def premiere_apparition_type(liste_activites, type_act):
     Returns:
         str: la date de la première apparition du type d'activité
     """
+    if not (type_act in ["type1","type2","type3","type4"]):
+        return None
     for activites in liste_activites:
         if activites[3]== type_act:
             return activites[1]
@@ -1076,15 +1103,20 @@ def recherche_activite_dichotomique(prenom, jour, type_act, liste_activites):
     """
     debut = 0
     fin = len(liste_activites)
-    if liste_activites != []:
+    if not(isinstance(prenom,str) and isinstance(jour,str) and (type_act in ["type1","type2","type3","type4"])):
+           print("Paramêtres invalides.")
+           return None
+    try:
         while debut<= fin :
             milieu = (debut+fin)//2
-            if (liste_activites[milieu])[0] == prenom  and (liste_activites[milieu])[1] == jour  and (liste_activites[milieu])[3] == type_act:
+            if (liste_activites[milieu])[0].lower() == prenom.lower()  and (liste_activites[milieu])[1] == jour  and (liste_activites[milieu])[3] == type_act:
                 return (liste_activites[milieu])
             elif est_avant(liste_activites[milieu],(prenom,jour,0,type_act)):
                 debut = milieu
             else: 
                 fin = milieu
+    except:
+        print("La liste d'activité fournie est incorrecte. ")
     return None
 
 def charger_activites(nom_fichier):
@@ -1097,12 +1129,13 @@ def charger_activites(nom_fichier):
     Returns:
         list: la liste d'activités du fichier
     """
-    with open(nom_fichier, 'r') as fichier:
-        #Je n'utilise pas .readline() car je l'utilise dans la fonction sauver_activites afin de vérifier que le fichier est déjà en forme
+    with open(nom_fichier, 'r', encoding='utf-8') as fichier:
+        fichier.readline()
         activites = []
         for ligne in fichier:
             activite = ligne.strip().split(',')
-            activites.append(activite)
+            activite[2] = float(activite[2])
+            activites.append(tuple(activite))
     return activites
 
 def sauver_activites(nom_fichier, liste_activites):
@@ -1113,13 +1146,17 @@ def sauver_activites(nom_fichier, liste_activites):
         nom_fichier (str): le nom du fichier CSV où sauvegarder les activités
         liste_activites (list): la liste d'activités à sauvegarder
     """
-    fichier=open(nom_fichier,'a')
-    if fichier.readline() !=  ("Prénom,Date,Emissions_CO2 (g),Type_Activité"):
-        fichier.write("Prénom,Date,Emissions_CO2 (g),Type_Activité")
-    for activite in liste_activites:
-        ligne = (activite[0] + "," + activite[1] + "," + str(activite[2]) + "," + activite[3] + "\n")
-        fichier.write()
-    fichier.close()
+    with open(nom_fichier,'w+',encoding='utf-8') as fichier:
+        fichier.seek(0)
+
+        if fichier.readline() !=  ("Prénom,Date,Emissions_CO2 (g),Type_Activité\n"):
+            fichier.seek(0) # Me permet de revenir au début du fichier pour y écrire l'entête
+            fichier.write("Prénom,Date,Emissions_CO2 (g),Type_Activité" + "\n")
+
+        for activite in liste_activites:
+            ligne = (activite[0] + "," + activite[1] + "," + str(activite[2]) + "," + activite[3] + "\n")
+            fichier.write(ligne)
+        fichier.close()
 
 # ---------------------------------------------------------------------------------------------
 # Dictionnaire python (structure de données non-encore étudiée en cours)
@@ -1138,8 +1175,8 @@ def temps_activite(activite, co2_minute):
     Returns:
         float: la durée de l'activité en minutes
     """
-    if (activite[3][4]<="4") and (activite[3][4]>="1"):
-        return (activite[2]/co2_minute[activite[3]])
+    if (est_activite(activite)) and (activite[3][4]<="4") and (activite[3][4]>="1"):
+        return (activite[2]*co2_minute[activite[3]])
     return None
 
 
@@ -1150,14 +1187,16 @@ def cumul_temps_activite(liste_activites, co2_minute):
     Retourne le temps total passé à réaliser des activités
     
     Args:
-        liste_activites (list): une liste d'activités
-            
+        liste_activites (list): une liste d'activité
     Returns:
         int: le temps total passé à réaliser des activités
     """
     duree_totale=0
     for activite in liste_activites:
-        duree_totale+=temps_activite(activite,co2_minute)
+        temps =temps_activite(activite,co2_minute) #Créer une variable me permet d'éviter un second appel de fonction
+        if temps is None :  
+            return None
+        duree_totale+= temps
     return duree_totale
 
 
@@ -1173,3 +1212,85 @@ def est_activite(untuple):
     return(isinstance(untuple,tuple) and (len(untuple)==4)and (isinstance(untuple[0],str)) and (isinstance(untuple[1],str)) and (isinstance(untuple[3],str)) and (len(untuple[1])==10)and (isinstance(untuple[2],(float,int))))
 
 
+def charger_sauver(nom_fichier,liste_activites):
+    nouvelleliste= charger_activites(nom_fichier)
+    for activites in liste_activites:
+        nouvelleliste.append(activites)
+    sauver_activites(nom_fichier,nouvelleliste)       
+
+
+def creer_liste_date(liste_act,debut,fin):
+    """
+    Retourne la liste des activités pratiquées dans la période donnée
+    Args:
+        liste_activites (list): une liste d'activité       
+        debut (str): Une date de la forme YEAR-MM-DD réprésentant le début de la période donnée
+        fin (str): Une date de la forme YEAR-MM-DD réprésentant la fin de la période donnée
+
+    Returns:
+        list: Une liste  d'activité commises dans l'intervalle de temps donné
+    """
+    nouvelleliste = []
+    if not(isinstance(fin,str) and isinstance(debut,str)):
+        return nouvelleliste
+    for activites in liste_act:
+        if activites[1]<= fin and activites[1]>=debut:
+            nouvelleliste.append(activites)
+    return nouvelleliste
+
+def plus_longue_periode_emmissions_croissantes(liste_activites):
+    """
+    Retourne la longueur de la plus longue suite d'emmissions croissantes dans une liste d'activités de même type, d'une même personne et ordonnée chronologiquement
+    Args:
+        liste_activites (list): une liste d'activites de même type, d'une même personne et ordonnée chronologiquement
+
+    Returns:
+        int: la longueur de la plus longue suite d'emmissions croissantes
+    """
+    periode =0
+    periode_max=0
+    try:
+        for i_activites in range(len(liste_activites[1:])):
+            if (liste_activites[i_activites-1])[2]< (liste_activites[i_activites])[2]:
+                periode +=1
+            else:
+                if periode_max<periode:
+                    periode_max = periode
+                periode = 0
+    except:
+        print("La liste d'activité fournie est incorrecte. ")
+    if periode_max<periode:
+        periode_max = periode
+    return periode_max
+
+def oui_non():
+    """Demande à l'utilisateur de rentrer oui ou non.
+    Returns:
+        str: oui ou non
+    """
+    condition = False
+    while not(condition):
+        res=input("").strip().lower()
+        if res in ("oui","o"):
+            res= True
+            condition= True
+        elif res in ("non","n"):
+            res= False
+            condition = True
+        elif res in ("quitter","quit","q"):
+            res = None
+            condition = True
+        else:
+            print("Veuillez entrer 'oui' ou 'non'.")
+    return res
+
+def extremites(liste_act):
+
+    mini= None
+    maxi = None
+    for activites in liste_act:
+        if (mini is None ) or (mini[2]> activites[2]):
+            mini = activites
+        elif (maxi is None ) or (maxi[2]< activites[2]):
+            maxi = activites
+    return (mini,maxi)
