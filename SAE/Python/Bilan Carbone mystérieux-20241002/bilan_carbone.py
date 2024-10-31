@@ -1061,12 +1061,9 @@ def fusionner_activites(liste_activites1, liste_activites2):
         else:
             listetriee.append(liste_activites2[ind2])
             ind2+=1
-    if (ind1>=(len(liste_activites1))):
-        for activites in liste_activites2[ind2:]:
-            listetriee.append(activites)
-    else:
-        for activites in liste_activites1[ind1:]:
-            listetriee.append(activites)
+    
+    listetriee.extend(liste_activites2[ind2:])
+    listetriee.extend(liste_activites1[ind1:])
     return listetriee
 
 
