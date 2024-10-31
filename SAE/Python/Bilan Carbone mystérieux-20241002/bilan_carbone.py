@@ -1102,18 +1102,18 @@ def recherche_activite_dichotomique(prenom, jour, type_act, liste_activites):
     fin = len(liste_activites)
     if not(isinstance(prenom,str) and isinstance(jour,str) and (type_act in ["type1","type2","type3","type4"])):
            print("Paramêtres invalides.")
-           return None
-    try:
-        while debut<= fin :
-            milieu = (debut+fin)//2
-            if (liste_activites[milieu])[0].lower() == prenom.lower()  and (liste_activites[milieu])[1] == jour  and (liste_activites[milieu])[3] == type_act:
-                return (liste_activites[milieu])
-            elif est_avant(liste_activites[milieu],(prenom,jour,0,type_act)):
-                debut = milieu
-            else: 
-                fin = milieu
-    except:
-        print("La liste d'activité fournie est incorrecte. ")
+    else:
+        try:
+            while debut<= fin :
+                milieu = (debut+fin)//2
+                if (liste_activites[milieu])[0].lower() == prenom.lower()  and (liste_activites[milieu])[1] == jour  and (liste_activites[milieu])[3] == type_act:
+                    return (liste_activites[milieu])
+                elif est_avant(liste_activites[milieu],(prenom,jour,0,type_act)):
+                    debut = milieu+1
+                else: 
+                    fin = milieu-1
+        except:
+            print("La liste d'activité fournie est incorrecte. ")
     return None
 
 def charger_activites(nom_fichier):
@@ -1173,7 +1173,7 @@ def temps_activite(activite, co2_minute):
         float: la durée de l'activité en minutes
     """
     if (est_activite(activite)) and (activite[3][4]<="4") and (activite[3][4]>="1"):
-        return (activite[2]*co2_minute[activite[3]])
+        return (activite[2]/co2_minute[activite[3]])
     return None
 
 

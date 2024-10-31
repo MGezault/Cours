@@ -148,7 +148,7 @@ def test_recherche_activite_dichotomique():
     assert bc.recherche_activite_dichotomique('Lucas', '2024-09-01', 'type3', [('Lucas', '2024-09-01', 67.2, 'type3'), ('Lucas', '2024-09-02', 70.08, 'type3')]) == ('Lucas', '2024-09-01', 67.2, 'type3')
     #Nouveaux Asserts
     assert bc.recherche_activite_dichotomique('Lucas', '2024-09-01', 'type7', bc.liste2) is None
-    assert bc.recherche_activite_dichotomique('Florian', '2024-09-26', 'type2', bc.liste6) ==('Florian', '2024-09-26', 74.1, 'type2')
+    assert bc.recherche_activite_dichotomique('Florian', '2024-09-26', 'type2', bc.liste5) ==('Florian', '2024-09-26', 74.1, 'type2')
     assert bc.recherche_activite_dichotomique('Lucas', '2024-09-01', 'type1', {7,8,78,8}) is None
 
 
@@ -156,7 +156,7 @@ def test_recherche_activite_dichotomique():
 def test_charger_sauver():
     bc.sauver_activites("fichier_test.csv",[('Lucas', '2024-08-02', 67.2, 'type1'), ('Lucas', '2024-09-01', 70.08, 'type1')])
     bc.charger_sauver("fichier_test.csv",[("Maria","2024-05-21",54,"type1"),("Marios","2023-13-31",12.6,"type3")])
-    assert bc.charger_activites("fichier_test.csv") == [('Lucas', '2024-08-02', '67.2', 'type1'), ('Lucas', '2024-09-01', '70.08', 'type1'), ('Maria', '2024-05-21', '54', 'type1'), ('Marios', '2023-13-31', '12.6', 'type3')]
+    assert bc.charger_activites("fichier_test.csv") == [("Lucas","2024-08-02",67.2,"type1"), ('Lucas', '2024-09-01', 70.08, 'type1'), ('Maria', '2024-05-21', 54, 'type1'), ('Marios', '2023-13-31', 12.6, 'type3')]
 
     bc.sauver_activites("fichier_test.csv",[])
     bc.charger_sauver("fichier_test.csv",[])
@@ -216,7 +216,3 @@ def test_min_emmission():
     assert (bc.min_emmission((bc.liste5)))==('Anaëlle', '2024-09-03', 0.0, 'type1')
     assert (bc.min_emmission([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3')]))== ('Lucas', '2024-10-01', 6.2, 'type3')
     assert (bc.min_emmission([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', "6.2", 'type3')])) is None
-
-
-test_annee_mois()
-print("e")
