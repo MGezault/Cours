@@ -33,17 +33,14 @@ def programme_principal():
                         print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
                         debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
                         fin = input("Quelle est la date de fin de période (sous forme YEAR-MM-DD) : ")
-                        try:
-                            if not((debut[0]+debut[1]+debut[2]+debut[3]+debut[5]+debut[6]+debut[6]+debut[8]+debut[9]).isnumeric() and (fin[0]+fin[1]+fin[2]+fin[3]+fin[5]+fin[6]+fin[6]+fin[8]+fin[9]).isnumeric() and debut<fin and (debut[8]+debut[9])<31 and (debut[5]+debut[6])<12):
-                                print("")
-                                print("Veuillez entrer des dates valides s'il vous plait.")
-                                continue
-                        except:
+                        liste_visee= bc.creer_liste_date(bc.filtre_par_prenom(toutes_activites,prenom),debut,fin)
+                        if liste_visee is None:
                             print("")
                             print("Veuillez entrer des dates valides s'il vous plait.")
-                            continue
+                        else:
+                            condition3= True
                     
-                    liste_visee= bc.creer_liste_date(bc.filtre_par_prenom(toutes_activites,prenom),debut,fin)
+                    
                 elif ouinon is None:
                     continue
                 else:
@@ -86,17 +83,13 @@ def programme_principal():
                         print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
                         debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
                         fin = input("Quelle est la date de fin de période (sous forme YEAR-MM-DD) : ")
-                        try:
-                            if not((debut[0]+debut[1]+debut[2]+debut[3]+debut[5]+debut[6]+debut[6]+debut[8]+debut[9]).isnumeric() and (fin[0]+fin[1]+fin[2]+fin[3]+fin[5]+fin[6]+fin[6]+fin[8]+fin[9]).isnumeric() and debut<fin and (debut[8]+debut[9])<31 and (debut[5]+debut[6])<12):
-                                print("")
-                                print("Veuillez entrer des dates valides s'il vous plait.")
-                                continue
-                        except:
+                        liste_visee= bc.creer_liste_date(toutes_activites,debut,fin)
+                        if liste_visee is None:
                             print("")
                             print("Veuillez entrer des dates valides s'il vous plait.")
-                            continue
-                        condition3= True
-                    liste_visee= bc.creer_liste_date(liste_visee,debut,fin)
+                        else:
+                            condition3= True
+                    
                 elif ouinon is None:
                     continue
             else:
@@ -158,9 +151,9 @@ def programme_principal():
                         condition2= False
                         while not(condition2):
                             if choix in ("groupe","tout le monde","global","tout","g","un groupe"):
-                                print ("Souhaitez-vous obtenir des informations sur la moyenne ou les extrémités ? ")
+                                print ("Souhaitez-vous obtenir des informations sur la moyenne ou les extrémités ? (Ou quitter pour quitter.) ")
                             else:
-                                print ("Souhaitez-vous obtenir des informations sur la croissance, la moyenne ou les extrémités ? ")
+                                print ("Souhaitez-vous obtenir des informations sur la croissance, la moyenne ou les extrémités ? (Ou quitter pour quitter.) ")
                             choixplus=(input("")).strip().lower()
 
                             if choixplus in ("croissance","croissances","c") and not( choix in ("groupe","tout le monde","global","tout","g","un groupe")):
@@ -186,6 +179,7 @@ def programme_principal():
                     print("Voici la liste de toutes les activités qui correspondent aux caractéristiques renseignées : ")
                     for activite in liste_visee:
                         print(activite)
+                    print("")
 
                 elif choixinfo in ("quitter","quit","q"):
                     finrenseignement=True

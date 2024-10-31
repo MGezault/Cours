@@ -969,7 +969,7 @@ def plus_longue_periode_emmissions_decroissantes(liste_activites):
     periode =0
     periode_max=0
     try:
-        for i_activites in range(len(liste_activites[1:])):
+        for i_activites in range(1,len(liste_activites)):
             if (liste_activites[i_activites-1])[2]> (liste_activites[i_activites])[2]:
                 periode +=1
             else:
@@ -1231,12 +1231,15 @@ def creer_liste_date(liste_act,debut,fin):
         list: Une liste  d'activité commises dans l'intervalle de temps donné
     """
     nouvelleliste = []
-    if not(isinstance(fin,str) and isinstance(debut,str)):
-        return nouvelleliste
-    for activites in liste_act:
-        if activites[1]<= fin and activites[1]>=debut:
-            nouvelleliste.append(activites)
-    return nouvelleliste
+    try:
+        if ((debut[0]+debut[1]+debut[2]+debut[3]+debut[5]+debut[6]+debut[6]+debut[8]+debut[9]).isnumeric() and (fin[0]+fin[1]+fin[2]+fin[3]+fin[5]+fin[6]+fin[6]+fin[8]+fin[9]).isnumeric() and debut<=fin and (debut[8]+debut[9])<="31"  and (fin[8]+fin[9])<="31" and (debut[5]+debut[6])<="12" and (fin[5]+fin[6])<="12" ):
+            for activites in liste_act:
+                if activites[1]<= fin and activites[1]>=debut:
+                    nouvelleliste.append(activites)
+            return nouvelleliste
+    except:
+        return None
+
 
 def plus_longue_periode_emmissions_croissantes(liste_activites):
     """
@@ -1250,14 +1253,14 @@ def plus_longue_periode_emmissions_croissantes(liste_activites):
     periode =0
     periode_max=0
     try:
-        for i_activites in range(len(liste_activites[1:])):
+        for i_activites in range(1,len(liste_activites)):
             if (liste_activites[i_activites-1])[2]< (liste_activites[i_activites])[2]:
                 periode +=1
             else:
                 if periode_max<periode:
                     periode_max = periode
                 periode = 0
-    except:
+    except IndexError and TypeError:
         print("La liste d'activité fournie est incorrecte. ")
     if periode_max<periode:
         periode_max = periode
@@ -1298,7 +1301,7 @@ def min_emmission(liste_activites):
 # Je préfère mettre un try plutôt qu'appeler est_activité pour chaque élement afin de gagner en complexité surtout que dans le programme principal, les activités 
 # auront déjà été vérifiées
         for element in liste_activites:
-            if (min_em is None) or (element[2]> min_em[2]):
+            if (min_em is None) or (element[2]< min_em[2]):
                 min_em = element
     except: 
         print("Votre liste d'activité n'est pas correcte. ")

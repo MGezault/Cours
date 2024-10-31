@@ -83,9 +83,9 @@ def test_plus_longue_periode_emmissions_decroissantes():
     assert bc.plus_longue_periode_emmissions_decroissantes([]) == 0
     assert bc.plus_longue_periode_emmissions_decroissantes(bc.liste6) == 3
     #Nouveaux Asserts
-    assert bc.plus_longue_periode_emmissions_decroissantes([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', 6, 'type3')])==1
+    assert bc.plus_longue_periode_emmissions_decroissantes([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', 6, 'type3')])==2
     assert bc.plus_longue_periode_emmissions_decroissantes(bc.liste2)==2
-    assert bc.plus_longue_periode_emmissions_decroissantes([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', 6, 'type3'),('Lucas', '2024-10-01', 5.2, 'type3'),('Lucas', 6.2, 'type3')])==0
+    assert bc.plus_longue_periode_emmissions_decroissantes([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', 6, 'type3'),('Lucas', '2024-10-01', 5.2, 'type3'),('Lucas', 6.2, 'type3')])==3
 
 
 
@@ -193,4 +193,27 @@ def test_est_activite():
     assert bc.est_activite(('Lucas', '2024-09-01', 67, 'type3'))
     assert not(bc.est_activite(('Lucas', '2024-09-01', 'type3')))
 
-test_charger_sauver()
+def test_creer_liste_date(): 
+    assert bc.creer_liste_date(bc.liste4,"2023-09-12","2024-08-12") == []
+    assert bc.creer_liste_date([('Lucas', '2024-09-01', 'type3'),('Antoine', '2024-09-11', 'type3'),('Pierre', '2024-09-16', 'type3')],"2024-09-09","2024-09-13") == [('Antoine', '2024-09-11', 'type3')]
+    assert bc.creer_liste_date(bc.liste4,"2024-09-12","2024-09-11") is None
+    assert bc.creer_liste_date([],"2024-09-12","2024-09-21") == []
+    assert bc.creer_liste_date(bc.liste1,"sdfgsdfosdfi","2024-08-12") is None
+
+def test_plus_longue_periode_emmissions_croissantes():
+    assert bc.plus_longue_periode_emmissions_croissantes([]) == 0
+    assert bc.plus_longue_periode_emmissions_croissantes(bc.liste6) == 4
+    #Nouveaux Asserts
+    assert bc.plus_longue_periode_emmissions_croissantes([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', 6, 'type3')])==0
+    assert bc.plus_longue_periode_emmissions_croissantes(bc.liste2)==2
+    assert bc.plus_longue_periode_emmissions_croissantes([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', 6, 'type3'),('Lucas', '2024-10-01', 5.2, 'type3'),('Lucas', 6.2, 'type3')])==0
+
+
+def test_min_emmission():
+    assert bc.min_emmission([]) == None
+    assert bc.min_emmission(bc.liste1) == ('Christophe', '2024-09-28', 14, 'type3')
+    #Nouveaux Asserts
+    assert (bc.min_emmission((bc.liste5)))==('Anaëlle', '2024-09-03', 0.0, 'type1')
+    assert (bc.min_emmission([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3')]))== ('Lucas', '2024-10-01', 6.2, 'type3')
+    assert (bc.min_emmission([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', "6.2", 'type3')])) is None
+    
