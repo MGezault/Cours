@@ -216,4 +216,7 @@ def test_min_emmission():
     assert (bc.min_emmission((bc.liste5)))==('Anaëlle', '2024-09-03', 0.0, 'type1')
     assert (bc.min_emmission([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3')]))== ('Lucas', '2024-10-01', 6.2, 'type3')
     assert (bc.min_emmission([('Lucas', '2024-10-01', 67, 'type3'),('Lucas', '2024-10-01', 6.2, 'type3'),('Lucas', '2024-10-01', "6.2", 'type3')])) is None
-    
+
+
+test_annee_mois()
+print("e")
