@@ -9,15 +9,17 @@ def programme_principal():
     umasse = "g"
     utemps= "h"
     fin= False
+    #A chaque tour de boucle, l'utilisateur ne veut pas terminer le code
     while not(fin):
         print("Souhaitez vous faire des recherches ou quitter ?")
         print("Vos unités sont actuellement en",umasse,"pour la masse et en",utemps,"pour le temps. Tapez 'unite' pour les modifier. ")
         choixfinal= input().strip().lower()
         if choixfinal in ("recherches","recherche","r"):
 
-            choix = (input("Sur un individu ou sur un groupe ? ")).strip().lower()
+            choix = (input("Sur un individu ou sur un groupe ? ")).strip().lower() #Me permet de supprimer les espaces entrés par l'utilisateur au début et à la fin de sa chaine de caractère et de ne lire sa chaine qu'en minuscule afin d'éviter la casse
             if choix in  ("invidu","individuel","un individu","une personne","quelqu'un","i"):
                 condition= False
+                #Pour chaque tour de boucle, l'utilisateur n'a pas entré une chaine de caractère valide pour être un prénom
                 while not(condition) : 
                     prenom= (input("Veuillez insérer le prénom de la personne que vous souhaitez que vous voulez analyser :  ")).strip()
                     if prenom.isalpha():
@@ -29,6 +31,7 @@ def programme_principal():
                 ouinon= bc.oui_non()
                 if ouinon:
                     condition3 = False
+                    #A chaque tour de boucle, l'utilisateur n'a pas une chaine de caractère valide pour être une date
                     while not(condition3):
                         print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
                         debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
@@ -40,12 +43,10 @@ def programme_principal():
                         else:
                             condition3= True
                     
-                    
-                elif ouinon is None:
+                elif ouinon is None:#Renvoie au menu précédent si l'utilisateur rentre "quitter"
                     continue
                 else:
                     liste_visee= bc.filtre_par_prenom(toutes_activites,prenom)
-   
 
             elif choix in ("groupe","tout le monde","global","tout","g","un groupe"):
                 print("Voulez vous créer votre propre groupe (oui) ou analyser la totalité des personnes (non) ?")
@@ -54,8 +55,10 @@ def programme_principal():
                     liste_visee= []
                     fingroupe = False
                     gens= []
+                    #A chaque tour de boucle, l'utilisateur n'a pas terminé de construire son groupe
                     while not(fingroupe):
                         condition= False
+                        #Pour chaque tour de boucle, l'utilisateur n'a pas entré une chaine de caractère valide pour être un prénom
                         while not(condition) : 
                             prenom= (input("Veuillez insérer le prénom de la personne que vous souhaitez que vous voulez analyser (ou quitter/fin pour commencer les analyses):  ")).strip().lower()
                             if prenom.isalpha():
@@ -70,7 +73,7 @@ def programme_principal():
                             print("Voici les personnes déjà ajouter au groupe : ",gens,".")     
                         else:
                             print("Cette personne est déjà dans votre groupe.")
-                elif ouinon is None:
+                elif ouinon is None:#Renvoie au menu précédent si l'utilisateur rentre "quitter"
                     continue
                 else:
                     liste_visee = toutes_activites
@@ -79,6 +82,7 @@ def programme_principal():
                 ouinon=bc.oui_non()
                 if ouinon:
                     condition3 = False
+                    #Pour chaque tour de boucle, l'utilisateur n'a pas entré des chaines de caractères valides pour être deux  dates
                     while not(condition3):
                         print("Nous allons avoir besoin de la date de début de période et de la date de fin de période : ")
                         debut = input("Quelle est la date de début de période (sous forme YEAR-MM-DD) : ")
@@ -90,12 +94,13 @@ def programme_principal():
                         else:
                             condition3= True
                     
-                elif ouinon is None:
+                elif ouinon is None: #Renvoie au menu précédent si l'utilisateur rentre "quitter"
                     continue
             else:
                 print("Il y a une erreur dans votre réponse, veuillez répondre 'invidu' ou 'groupe'. ")
                 continue
             finrenseignement= False
+            #Pour chaque tour de boucle, l'utilisateur n'a pas fini d'obtenir des renseignements sur la liste de ses activités
             while not(finrenseignement):
                 print("Quels renseignements souhaitez vous avoir ? (Entrez 'aide' pour voir la liste des renseignements.) ")
                 choixinfo= input("").strip().lower()
@@ -130,6 +135,8 @@ def programme_principal():
                 elif choixinfo in ("emission","emissions","e"):
                     totalem = 0
                     totaltemps= 0
+                    #Pour chaque tour de boucle, les renseignements des typ rencontrés a été montré à l'utilisateur, totalem vaut l'intégralité
+                    #des émissions de chacun des types, et total temps vaut l'intégralité du temps d'émission des types  
                     for typ in ("type1","type2","type3","type4"):
                         listetype=bc.filtre(liste_visee,3,typ)
                         emission = bc.cumul_emmissions(listetype)
@@ -149,7 +156,10 @@ def programme_principal():
                     print("Voulez vous davantages d'informations ? ")
                     if bc.oui_non():
                         condition2= False
+                        #Pour chaque tour de boucle, l'utilisateur n'a pas fini d'obtenir des renseignements avancés
                         while not(condition2):
+                            #Il est impossible d'afficher la croissance des activités pour un groupe si elles ne sont pas triés dans 
+                            #l'ordre croissant. Or, les activités sont classées par nom et non pas par date, 
                             if choix in ("groupe","tout le monde","global","tout","g","un groupe"):
                                 print ("Souhaitez-vous obtenir des informations sur la moyenne ou les extrémités ? (Ou quitter pour quitter.) ")
                             else:
@@ -177,6 +187,7 @@ def programme_principal():
 
                 elif choixinfo in ("echantillon","echantillons","ec"):
                     print("Voici la liste de toutes les activités qui correspondent aux caractéristiques renseignées : ")
+                    #Pour chaque tour de boucle, toutes les activités présentes dans liste_visee et rencontrées ont été affichées à l'utilisateur
                     for activite in liste_visee:
                         print(activite)
                     print("")
@@ -201,6 +212,7 @@ def programme_principal():
 
         elif choixfinal in ("u","unites","unite"):
             valide = False
+            #Pour chaque tour de boucle, l'utilisateur n'a pas insérer des valeurs valides pour les unités qu'il souhaite utiliser
             while not(valide):
                 umasse= input("Comment voulez-vous que vos données de masse soient analysées ? (Veuillez entrer kg/hg/dag/g/dg/cg/mg.) ")
                 utemps=input("Comment voulez-vous que vos données de temps soient analysées ? (Veuillez entrer h/m/s.) ")
