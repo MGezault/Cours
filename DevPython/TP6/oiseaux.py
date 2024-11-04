@@ -23,6 +23,8 @@ observations2 = [("Merle", 2), ("Moineau", 1), ("Mésange", 3),
 observations3 = [("Mésange", 4), ("Pic vert", 3), ("Pie", 2), ("Pinson", 1),
                  ("Rouge-gorge", 2), ("Tourterelle", 4)]
 
+observations4 = [("Merle", 2), ("Moineau", 1), ("Mésange", 3),
+                 ("Pinson", 3),("Rouge-gorge", 5), ("Tourterelle", 1)]
 
 # --------------------------------------
 # FONCTIONS

@@ -56,9 +56,9 @@ def recherche_par_famille(liste_oiseau,famille):
     """
     meme_famille=[]
     #Meme_famille contient tous les oiseaux de la famille donnée de l'indice 0 à l'indice correspondant
-    for oiseaux in liste_oiseau:
-        if oiseaux[1]== famille:
-            meme_famille.append(oiseaux)
+    for (nom,famille_oiseau) in liste_oiseau:
+        if famille_oiseau== famille:
+            meme_famille.append(nom)
     return meme_famille
 
 
@@ -80,6 +80,7 @@ def est_liste_observations(liste_obse):
         try:
             if not((type(tuples[0]) == str)and (type(tuples[1])== int)and (tuples[1]>0) and (tuples[0][0]<=dernierelettre)):
                 return False
+            dernierelettre= tuples[0][0]
         except:
             return False
     return True
@@ -97,9 +98,9 @@ d’observations
     """
     observes = 0
     #a chaque tour de boucle, observes vaut le plus grand nombre de spécimens observé
-    for oiseaux in list_observations:
-        if oiseaux[1] > observes:
-            observes = oiseaux[1]
+    for (_, nb_observes) in list_observations:
+        if nb_observes > observes:
+            observes = nb_observes
     return observes
 
 def moyenne_oiseaux_observes(liste_obse):
@@ -133,13 +134,10 @@ def total_famille(liste_obse,liste_oiseaux,famille):
     """
     total=0
     familleoiseau= recherche_par_famille(liste_oiseaux,famille)
-    #De l'indice 0 à i, familleoiseau[n] contiendra le nom d'un oiseau
-    for i in range (len(familleoiseau)):
-        familleoiseau[i]= familleoiseau[i][0]
     #a chaque tour de boucle, la variable total contient le nombre total d'observations des oiseaux de la famille spécifiée dans liste_obse 
-    for bird in liste_obse:
-        if bird[0] in familleoiseau:
-            total += bird[1]
+    for (nom_oiseau,nb_obse) in liste_obse:
+        if nom_oiseau in familleoiseau:
+            total += nb_obse
     return total
 
 #Exercice 4
@@ -160,3 +158,80 @@ def construire_liste_observations(liste_oiseau,liste_comptage):
         if liste_comptage[i]!=0:
             liste_obse.append((liste_oiseau[i][0],liste_comptage[i]))
     return liste_obse
+
+
+def observation(liste_oiseau):
+    """Demande à l’utilisateur le
+nombre de spécimens de chaque oiseau qu’il a observé
+
+    Args:
+        liste_oiseaux (list): Une liste de tuple contenant le nom de l'oiseau avec sa famille
+    Returns:
+        list: une liste d'observation contenant le nom d'oiseau à l'indice i et le nb de fois qu'il a été compté 
+    """
+    liste_obse = list()
+    #A chaque tour de boucle, tous les élements précedents ont été classés dans une liste d'observation
+    for (nom,_) in liste_oiseau:
+        obse= int(input("Combien de fois avez vous observés l'oiseau ",nom," ? "))
+        liste_obse.append(nom,obse)
+    return liste_obse
+
+
+
+#Exercice 5
+
+
+def affiche_infos(liste_obse,liste_oiseaux):
+    """Affiche le nom, la famille et le nombre d'observation de chaque oiseau dans liste_obse
+
+    Args:
+        liste_obse (list): Une liste de tuple contenant le nom de l'oiseau avec son nombre d'observation
+        liste_oiseaux (list): Une liste de tuple contenant le nom de l'oiseau avec sa famille
+    """
+    #A chaque tour de boucle, les informations de tous les éléments précédents ont été affichés
+    for (nom_oiseau,nb_obse) in liste_obse:
+        nom = ("Nom: " + nom_oiseau).ljust(18)
+        famille =("Famille: " + (recherche_oiseau(liste_oiseaux,nom_oiseau)[1])).ljust(20)
+        obse = ("Nb observés: " + str(nb_obse)).ljust(10)
+        print(nom,famille,obse)
+
+def obse_seuil(liste_obse,seuil):
+    """crée une
+chaîne de caractères contenant "** " ayant un nombre d’observations au moins égal au seuil et
+quatre espaces pour les autres
+
+    Args:
+        liste_obse (list): Une liste de tuple contenant le nom de l'oiseau avec son nombre d'observation
+        seuil (int): Le nombre d'observations d'un oiseau dont on veut savoir s'il a été dépassé
+
+    Returns:
+        str: Une chaine d'étoiles
+    """
+    chaine = ""
+    for (nom_oiseau,nb_obse) in liste_obse:
+        if nb_obse >= seuil:
+            chaine += "**".ljust(4)
+        else:
+            chaine +="".ljust(4)
+        return chaine
+    
+#Ecrire une fonction à partir d’une liste d’observation 
+
+def trois_premieres_lettres(liste_obs):
+    """crée une chaîne de caractères contenant les 3 premières lettres du nom de chaque oiseau suivi d’un espace.
+
+    Args:
+        liste_obse (list): Une liste de tuple contenant le nom de l'oiseau avec son nombre d'observation
+
+    Returns:
+        str: les 3 premières lettres de chaque nom de chaque oiseau suivi d’un espace.
+    """
+    chaine = ""
+    for (nom,_) in liste_obs:
+        chaine += (nom[3:]).ljust(4)
+    return chaine
+
+def graphique(liste_obse):
+
+    seuil=max_observations(liste_obse)
+    for elem in range(seuil):
