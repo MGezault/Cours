@@ -77,6 +77,20 @@ def matrice5():
     API.set_val(mat6, 1, 1, 9)
     return mat6
 
+def matrice6():
+    """ définition d'une matrice pour les tests """
+    mat3 = API.matrice(3, 3, None)
+    API.set_val(mat3, 0, 0, 2)
+    API.set_val(mat3, 0, 1, 0)
+    API.set_val(mat3, 0, 2, 0)
+    API.set_val(mat3, 1, 0, 9)
+    API.set_val(mat3, 1, 1, 5)
+    API.set_val(mat3, 1, 2, 0)
+    API.set_val(mat3, 2, 0, 4)
+    API.set_val(mat3, 2, 1, 3)
+    API.set_val(mat3, 2, 2, 8)
+    return mat3
+
 
 def test_get_nb_lignes():
     """ tests get_nb_lignes """
@@ -108,6 +122,12 @@ def test_get_val():
     assert API.get_val(matr3, 2, 0) == 4
     assert API.get_val(matr3, 1, 0) == 9
 
+def test_sauve_charge_matrice():
+    """tests pour sauvegarde et restauration"""
+    la_matrice = matrice2()
+    API.sauve_matrice(la_matrice, "matrice.csv")
+    matrice_bis = API.charge_matrice_str("matrice.csv")
+    assert la_matrice == matrice_bis
 
 def test_get_ligne():
     assert um.get_ligne(matrice1(),0) == [10,11,12,13]
@@ -130,5 +150,27 @@ def test_get_diago_sec():
     assert not(um.get_diagonale_secondaire(matrice4()) == [1, 6, 11, 16])
     assert um.get_diagonale_secondaire(matrice4()) == [13,10,7,4]
     assert um.get_diagonale_secondaire(matrice5()) == [7,5]
+    assert um.get_diagonale_secondaire([0,0,[]]) == []
 
+
+def test_transposee():
+    assert um.transpose(matrice1()) == [10, 14, 18, 11, 15, 19, 12, 16, 20, 13, 17, 21]
+    assert um.transpose(matrice4()) == [1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
+    assert um.transpose(matrice2()) == ['A', 'D', 'B', 'E', 'C', 'F']
+    assert not(um.transpose(matrice3()) == [2, 9, 4, 7, 5, 3, 6,8,1])
+    assert um.transpose([2,2,[1,2,4,5]]) == [1,4,2,5]
+    assert um.transpose([0,0,[]]) == []
+
+
+def test_triangle_inf():
+    assert not(um.is_triangle_inferieur(matrice4()))
+    assert um.is_triangle_inferieur([0,0,[]])
+    assert not(um.is_triangle_inferieur(matrice5()))
+    assert um.is_triangle_inferieur(matrice6())
+
+def test_bloc():
+    assert um.bloc(matrice1(),1,1,2,2) == [15, 16, 19, 20]
+    assert um.bloc(matrice4(),1,2,2,3) ==  [7, 8, 9, 11, 12, 13]
+    assert um.bloc(matrice5(),0,1,1,2) == [5,7]
+    assert not(um.bloc(matrice2(),0,0,1,2)) == ['A','B','C']
 
