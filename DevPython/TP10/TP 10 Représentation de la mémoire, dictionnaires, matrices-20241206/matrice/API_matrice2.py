@@ -1,7 +1,7 @@
 """ Matrices : API n 1 """
 
 
-def matrice(nb_lignes, nb_colonnes, valeur_par_defaut):
+def matrice(nb_colonnes,nb_lignes, valeur_par_defaut):
     """crée une nouvelle matrice en mettant la valeur par défaut dans chacune de ses cases.
 
     Args:
@@ -12,7 +12,13 @@ def matrice(nb_lignes, nb_colonnes, valeur_par_defaut):
     Returns:
         une nouvelle matrice qui contient la valeur par défaut dans chacune de ses cases
     """
-    ...
+    nvmatrice= []
+    for col in range(nb_colonnes):
+        ligne = []
+        for lig in range (nb_lignes):
+            ligne.append(valeur_par_defaut)
+        nvmatrice.append(ligne)
+    return nvmatrice
 
 def set_val(la_matrice, ligne, colonne, nouvelle_valeur):
     """permet de modifier la valeur de l'élément qui se trouve à la ligne et à la colonne
@@ -27,7 +33,8 @@ def set_val(la_matrice, ligne, colonne, nouvelle_valeur):
     Returns:
         None
     """
-    ...
+    la_matrice[ligne][colonne]= nouvelle_valeur
+    return la_matrice
 
 def get_nb_lignes(la_matrice):
     """permet de connaître le nombre de lignes d'une matrice
@@ -38,7 +45,7 @@ def get_nb_lignes(la_matrice):
     Returns:
         int : le nombre de lignes de la matrice
     """
-    ...
+    return (len(la_matrice))
 
 def get_nb_colonnes(la_matrice):
     """permet de connaître le nombre de colonnes d'une matrice
@@ -49,7 +56,9 @@ def get_nb_colonnes(la_matrice):
     Returns:
         int : le nombre de colonnes de la matrice
     """
-    ...
+    if len(la_matrice)>0:
+       return(len(la_matrice[0]))
+    return 0
 
 def get_val(la_matrice, ligne, colonne):
     """permet de connaître la valeur de l'élément de la matrice dont on connaît
@@ -63,7 +72,18 @@ def get_val(la_matrice, ligne, colonne):
     Returns:
         la valeur qui est dans la case située à la ligne et la colonne spécifiées
     """
-    ...
+    return la_matrice[ligne][colonne-1]
+
+
+def get_ligne(matrice,ligne):
+    return matrice[ligne]
+
+
+def get_colonne(matrice,col):
+    colonne = []
+    for ligne in range (len(matrice)):
+        colonne.append(ligne[col])
+    return colonne
 
 # Fonctions pour l'affichage
 

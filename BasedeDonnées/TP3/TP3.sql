@@ -82,16 +82,20 @@ NATURAL JOIN RESERVATIONS NATURAL JOIN VOYAGES WHERE Ville = VilleDepart;
 
 -- 6 ) 
 
-INSERT INTO VOYAGES (Code, VilleDepart, VilleArrivee, Depart, Retour, Prix)
-VALUES ('V123', 'Lyon', 'Berlin', SYSDATE + INTERVAL '1 year', SYSDATE + INTERVAL '1 year 7 days', 250);
-
 
 -- 7 ) 
-SELECT VilleDepart, VilleArrivee, Depart, TO_CHAR(Depart, 'HH24:MI') AS HeureDepart
-FROM VOYAGES WHERE (Depart - SYSDATE) / 30 > 3
+SELECT VilleDepart, VilleArrivee, TO_CHAR(Depart, 'dd-mm-yy') AS JDepart, TO_CHAR(Depart, 'HH24:MI') AS HDepart
+FROM VOYAGES 
+WHERE (Depart - SYSDATE) / 30 > 3
 ORDER BY Depart ASC;
 
 -- 8 )
+
+select villeArrive,Villes
+from VOYAGES
+union
+select villeDepart,VIlles
+from VOYAGES;
 
 -- 9 )
 
@@ -99,5 +103,33 @@ SELECT * from clients where ville != 'Paris';
 
 -- 10 )
 
-SELECT * from voyages
-where code not in (select code from reservations);
+(Select Id,Prenom,Nom 
+from Clients NATURAL join reservations natural join Voyages
+where VilleDepart = 'Paris')
+minus
+(select Id, Prenom, Nom
+from Clients
+where Ville='Paris');
+-- 11 )
+
+(SELECT id
+from CLIENTS)
+minus
+(select id 
+from Reservations);
+
+-- 12 ) 
+(select Code 
+from Voyages)
+minus
+(Select code 
+from Reservations);
+
+-- 13 ) 
+
+(select id 
+from Clients)
+minus
+(select id 
+from Voyages Natural join Reservations
+where VilleArrivee = 'Amsterdam' and VilleDepart ='Paris');

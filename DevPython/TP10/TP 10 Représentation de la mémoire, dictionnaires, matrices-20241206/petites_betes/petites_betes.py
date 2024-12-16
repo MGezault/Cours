@@ -15,7 +15,13 @@ def pokemon_par_famille(liste_pokemon):
     Returns:
         dict: le dictionnaire nom_famille ensemble des noms de pokemon de cette famille
     """
-    ...
+    res = dict()
+    for (typepk,noms,_) in liste_pokemon:
+        if typepk not in res:
+            res[typepk] = set()
+        for pkmn in noms:
+            res[typepk].add(pkmn)
+    return res
 
 def test_pokemon_par_famille():
     ...

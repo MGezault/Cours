@@ -162,9 +162,8 @@ def nombre_de_v3(attaque, pokedex):
     dans le pokedex
     Complexité : O(N)
     """
-    for (typeattk,noms) in pokedex.items():
-        if attaque == typeattk :
-            return len(noms)
+    if attaque in pokedex :
+        return len(pokedex[attaque])
     return 0
 
 
