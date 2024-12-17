@@ -34,35 +34,70 @@ Cette question-ci était plus simple que la précédente, en effet, il ne fallai
 
 ## A.3)
 
-### A.3.A)
+### A.3.1)
 
-Il y a 48 bits par pixel, on peut l'affirmer grâce aux deux octets entourés en rouge qui permettent de transmettre la quantité de bits par pixel. Comme c'est en little endian on inverse les valeurs, et 30 (base 16) en décimal vaut 48. 
+Il y a 48 bits par pixel, on peut l'affirmer grâce aux deux octets entourés en rouge qui permettent de transmettre la quantité de bits par pixel. Il y est inscrit "30 00" comme c'est en little endian on inverse les valeurs, et 30 (base 16) en décimal vaut 48. 
 
 <img src="Image3A.png" alt="Image de réponse à la question 3 A" width="400" />
 
 
 
-### A.3.B)
+### A.3.2)
 
 Comme on peut le voir sur l'image, il y a 4x4 pixels sur l'image, soit 16 pixels.
 Pour obtenir ces informations, j'ai fais un clique droit sur l'image, propriété, image.
 
 <img src="Image3B.png" alt="Image de réponse à la question 3 B" width="400" />
 
-### A.3.C)
+On peut aussi le voir grâce à ces octets entourés, qui représente en premier la largeur puis la hauteur, les deux valeurs sont à 04 00 00 00, encore une fois, nous sommes en little endian donc nous inversons et obtenons 4x4, alors il y a 4 pixels sur 4 pixels.
 
-Avant la conversion, l'image faisait 74 octets, après conversion, l'image en fait désormais 102, donc il n'y a pas de compression utilisée, au contraire, sa taille augmente.
+<img src="Image3B2.png" alt="Image de réponse à la question 3 B " width="400" />
+
+### A.3.3)
+
+En regardant dans les propriétés de l'image, on sait que l'image faisait 74 octets avant la conversion, mais qu'après conversion, on voit que l'image en fait désormais 102, donc il n'y a pas de compression utilisée, au contraire, sa taille augmente.
 
 <img src="Image3C.png" alt="Image de réponse à la question 3 C" width="400" />
 
+On peut confirmer ce que dise l'onglet propriété en allant dans Okteta et cherchons la taille inscrite dans le fichier, c'est inscrit 66 00 en little endian, si on convertit en décimal, on obtient bien 102 octets, donc la taille du fichier à bien augmenter.
 
-### A.3.D)
+<img src="Image3C2.png" alt="Image de réponse à la question 3 C" width="400" />
+
+
+### A.3.4)
 
 Sachant qu'avant la conversion, chaque pixel était codé sur 24 bits et qu'après conversion, chaque pixel est codé sur 48 bits, alors le format de codage de bits a effectivement changé.
 
 
-## A.4)
+## A.4.1)
 
-Il y a 8 bits par pixel, on peut l'affirmer grâce aux deux octets entourés en rouge qui permettent de transmettre la quantité de bits par pixel. Comme c'est en little endian on inverse les valeurs, et 30 (base 16) en décimal vaut 48. 
+Il y a 8 bits par pixel. Sur l'image, il y a 2 octets entourés en rouge, il y a écrit 01 00, comme c'est en little endian on inverse les octets, et nous obtenons la valeur 00 01, soit 1 en décimal, cela signifit donc qu'il y a 1 bit par pixel.
 
-<img src="Image3A.png" alt="Image de réponse à la question 3 A" width="400" />
+<img src="Image4A.png" alt="Image de réponse à la question 4 1" width="400" />
+
+## A.4.2)
+
+
+Comme on peut le voir sur l'image, il y a 4x4 pixels sur l'image, soit 16 pixels.
+Pour obtenir ces informations, j'ai fais un clique droit sur l'image, propriété, image.
+
+<img src="Image4B1.png" alt="Image de réponse à la question 4 B" width="400" />
+
+On peut aussi le voir grâce à ces octets entourés, qui représente en premier la largeur puis la hauteur, les deux valeurs sont à 04 00 00 00, encore une fois, nous sommes en little endian donc nous inversons et obtenons 4x4, alors il y a 4 pixels sur 4 pixels.
+
+
+<img src="Image4B2.png" alt="Image de réponse à la question 4 B " width="400" />
+
+
+### A.4.3)
+
+En regardant dans les propriétés de l'image, on sait que l'image faisait 102 octets avant la conversion, mais qu'après conversion, on voit que l'image en fait désormais 78, donc il y a bien eu une compression car sa taille a diminué et demande maintenant moins de bits pour être stocké.
+
+<img src="Image4C.png" alt="Image de réponse à la question 4 C" width="400" />
+
+On peut confirmer ce que dise l'onglet propriété en allant dans Okteta et cherchons la taille inscrite dans le fichier, c'est inscrit 4E 00 en little endian, si on convertit en décimal, on obtient bien 78 octets, donc la taille du fichier à bien diminuer.
+
+<img src="Image4C2.png" alt="Image de réponse à la question 4 C" width="400" />
+
+
+### A.4.4)
