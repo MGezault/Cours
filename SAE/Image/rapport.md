@@ -101,3 +101,11 @@ On peut confirmer ce que dise l'onglet propriété en allant dans Okteta et cher
 
 
 ### A.4.4)
+
+Les couleurs sont codées sur 6 octets, 3 octets par couleur, ceux ci sont définis dans l'entête. 
+
+<img src="Image4D.png" alt="Image de réponse à la question 4 D" width="400" />
+
+### A.4.5)
+
+Les couleurs sont codées en binaires. En effet, le format stockant la couleur d'un pixel sur un bit ne supporte que deux couleurs, chacune ayant une couleur, en l'occurence 0 pour le blanc et 1 pour le rouge.

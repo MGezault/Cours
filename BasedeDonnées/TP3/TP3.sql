@@ -133,3 +133,42 @@ minus
 (select id 
 from Voyages Natural join Reservations
 where VilleArrivee = 'Amsterdam' and VilleDepart ='Paris');
+
+-- 16 ) 
+
+SELECT c1.ville as client1, c2.ville as client2,c1.nom as client1, c2.nom as client2,
+from clients as c1,
+join clients c2 on c1.ville = c2.villge AND c1.id < c2.id;
+
+
+-- 16 ) 
+
+SELECT c1.ville as client1, c2.ville as client2,c1.nom as client1, c2.nom as client2,
+from clients  c1,
+join clients c2 on c1.ville = c2.villge AND c1.id < c2.id;
+
+
+-- 17 ) 
+SELECT c1.Code as voyage1, c2.Code as voyage2,c1.nom as voyage1, c2.nom as voyage2,
+from voyages  c1, voyages c2,
+where c1.prix = c2.prix and c1.nom <c2.nom;
+
+
+-- 18 ) 
+
+SELECT r1.Id, r1.Code, r2.Code
+from reservations  r1, reservations r2,
+where r1.id = r2.id 
+and r1.nom < r2.nom;
+
+
+
+-- Exercice 2 )
+
+-- 1 )
+
+(select p.nomP 
+from Peintres p)
+minus 
+(select t.nomP 
+from Tableaux t)
