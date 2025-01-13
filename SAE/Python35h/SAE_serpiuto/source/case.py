@@ -128,8 +128,8 @@ def set_boite(case:dict,valeur:int,proprietaire:int,temps_restant:int)->bool:
     Returns:
         bool: True si l'opération s'est bien passée et False sinon
     """
-    # if case["mur"]:
-    #     return False
+    if case["mur"]:
+         return False
     case["mur"]=False
     case["valeur"]=valeur
     case["proprietaire"]=proprietaire
@@ -215,4 +215,9 @@ def copy_case(case:dict)->dict:
     Returns:
         dict: la copie de la case passée en paramètre
     """ 
-    ...   
+    return {
+         "mur":case["mur"],
+         "valeur":case["valeur"],
+         "proprietaire":case["proprietaire"],
+         "temps_restant":case["temps_restant"]
+    }

@@ -859,3 +859,9 @@ def copy_arene(arene:dict)->dict:
         dict: la copie de l'arène passée en paramètre
     """
     ...
+
+    ar =Arene(15,25,["1","2","3","4"])
+    plan=set_plan_from_fic("../plan/plan1.txt")
+    arenef= set_plan(ar,plan)
+
+    print(arenef)
