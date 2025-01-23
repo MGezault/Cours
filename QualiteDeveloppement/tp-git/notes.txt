@@ -1,0 +1,3 @@
+- Comprendre Git
+L'habit ne fait pas le moine !
+- Effectuer plusieurs commits
