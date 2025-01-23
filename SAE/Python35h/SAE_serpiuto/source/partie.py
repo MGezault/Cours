@@ -210,6 +210,7 @@ def partie_from_str(la_chaine:str,sep=";") ->dict:
     return {"nom_partie":nom_partie, "duree_totale":duree_totale,"temps_restant":temps_restant,
             "arene":larene}
 
+
 def copy_partie(partie:dict)->dict:
     """ recopie complètement une partie
 
@@ -219,4 +220,9 @@ def copy_partie(partie:dict)->dict:
     Returns:
         dict: la recopie de la partie passée en paramètres
     """
-    ...
+    return  {
+    "nom_partie" : get_nom_partie(partie),
+    "duree_total" : get_duree_totale(partie),
+    "temps_restant" : get_temps_restant(partie),
+    "arene" : get_arene(partie)
+    }

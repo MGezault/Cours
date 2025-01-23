@@ -6,6 +6,14 @@
     Module case.py
     module implémentant l'API de gestion d'une case de l'arène.
 """
+# coding: utf-8
+"""
+            SAE1.02 SERPIUT'O
+         BUT1 Informatique 2024-2025
+
+    Module case.py
+    module implémentant l'API de gestion d'une case de l'arène.
+"""
 from typing import Any
 
 def Case(mur:bool, valeur:int=0, proprietaire:int=0, temps_restant:int=0) -> dict:
@@ -128,8 +136,8 @@ def set_boite(case:dict,valeur:int,proprietaire:int,temps_restant:int)->bool:
     Returns:
         bool: True si l'opération s'est bien passée et False sinon
     """
-    if case["mur"]:
-         return False
+    # if case["mur"]:
+    #     return False
     case["mur"]=False
     case["valeur"]=valeur
     case["proprietaire"]=proprietaire
@@ -205,6 +213,7 @@ def enlever_boite(case:dict)->None|tuple[int,int,int]:
     case["temps_restant"]=0
 
     return val,prop,tr
+
 
 def copy_case(case:dict)->dict:
     """fait une copie de la case

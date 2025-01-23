@@ -34,6 +34,11 @@ BONUS={AJOUTE:'+', # ajoute une boite de la même valeur que la queue du serpent
        PROTECTION:'%'  # protège le serpent pendant la durée de vie du bonus
        }
 
+# boites de points
+BOITE1 = 6
+BOITE2 = 7
+
+
 def Arene(nb_lig:int,nb_col:int,noms_participants:list[str])->dict:
     """Créer une arène avec un plateau de nb_lig lignes et nb_col colonnes pour nb_joueurs joueurs
 
@@ -848,6 +853,7 @@ def sauver_score(arene:dict,nom_fic:str):
             fic.write(serpent.get_nom(serp).replace("~", ".").replace(";", ",") + ";" + \
                             str(serpent.get_points(serp)) + "\n")
 
+
 def copy_arene(arene:dict)->dict:
     """recopie une arene. Attention à ce que la matrice et les listes
     soient bien des recopies.
@@ -858,10 +864,22 @@ def copy_arene(arene:dict)->dict:
     Returns:
         dict: la copie de l'arène passée en paramètre
     """
-    ar = arene
+    nvmatrice = {
+        'nb_lig' :matrice.get_nb_lignes(arene["matrice"]),
+        "nb_col": matrice.get_nb_colonnes(arene["matrice"]),
+        "valeurs": {}
+        }
+    for i in range (nvmatrice["nb_lig"]):
+            for j in range (nvmatrice["nb_col"]):
+                nvmatrice["valeurs"][i,j] = matrice.get_val(arene["matrice"],i,j)
+    nvserpents = []
+    for serp in arene["serpents"]:
+        nvserpents.append(serpent.copy_serpent(serp))
+    return {
+        "matrice" : nvmatrice,
+        "nb_joueurs" : len(nvserpents),
+        "serpents" : nvserpents
+    }
 
-    ar =Arene(15,25,["1","2","3","4"])
-    plan=set_plan_from_fic("../plan/plan1.txt")
-    arenef= set_plan(ar,plan)
-
-    print(arenef)
+def get_temps_restant(arene:dict,lig:int,col:int)-> int:
+    return case.get_temps_restant(matrice.get_val(arene["matrice"],lig,col))
