@@ -1,0 +1,26 @@
+1. Sans ordinateur :
+
+∙ Sur ces deux classes, seule la classe ExecutableCouple est exécutable. Pourquoi ?
+∙ Identifiez les attributs, constructeurs et méthodes de la classe Couple.
+∙ Précisez les affichages provoqués par les lignes (1), (2) et (3).
+∙ Quelle commande permet de compiler ce projet ?
+∙ Quelle commande bash permet d’exécuter ce projet ?
+
+
+- Grâce à la méthode "public static void main(String [] args)".
+
+- Attributs : - Premier - second
+  Méthodes : - setPremier, - permuter - somme - toString
+  Constructeurs : Les deux "Couples"
+
+- 1 : Affiche le premier Couple (5,-4)
+  2 : Affiche la somme du premier Couple : 1
+  3 : Affiche le second Couple (0,7).
+
+- javac ExecutableCouple.java Couple.java 
+  ou 
+  javac *.java
+  ou
+  javac ExecutableCouple.java (Il va aller chercher le fichier Couple.java tout seul et le compiler)
+
+- java ExecutableCouple
