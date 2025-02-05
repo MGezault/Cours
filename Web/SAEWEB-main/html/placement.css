@@ -1,0 +1,101 @@
+    table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    width: 20%;
+    border: 2px solid #f0f0f0;
+    text-align: center;
+    font-size: large;
+    background-color:    #49ca64  ;
+    border-color: #2c8c40;
+}
+
+.intro{
+    margin-right: 80px;
+    margin-left: 80px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size:15px;
+    border: solid;
+    border-radius: 20px;
+    text-align: center;
+    border-color: #2c8c40;
+    background-color:  #49ca64;
+}
+
+nav table ,nav table  a{
+    color: black;
+}
+
+.paire{
+    margin-right: 200px;
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size:15px;
+    border: solid;
+    border-radius: 20px;
+    border-color: #123cda;
+	background-color:  #78b6fb ;
+}
+.articleFooter{
+    width: 100%;
+    text-align: center;
+    }
+
+.texte{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.paire .texte>img{
+    width: 300px;
+    border-radius: 20px;
+    float:right;
+}
+
+header img{
+    width: 98%;
+    height: 100%;
+    border: solid;
+    border-radius:30px;
+    margin:10px;
+    border-color: #123cda;
+}
+
+h2{
+    text-align: center;
+}
+
+a{
+    text-decoration: None;
+}
+
+.impaire{
+    margin-right: 30px;
+    margin-left: 200px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size:15px;
+    border: solid;
+    border-radius: 20px;
+    border-color: #2c8c40;
+	background-color:   #49ca64 ;
+}
+
+.impaire .texte>img{
+    width: 300px;
+    border-radius: 20px;
+    float:left;
+}
+
+footer{
+    text-align: center;
+    border:solid;
+    border-radius: 20px;
+    border-color: #2c8c40;
+	background-color:   #49ca64 ;
+}
