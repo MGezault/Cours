@@ -1,0 +1,145 @@
+@font-face {
+    font-family: "Metropolis-Bold"; /* Nom de la police que tu choisis */
+    src: url("../font/Metropolis-Bold.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Metropolis-Normal";
+    src: url("../font/Metropolis-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Metropolis-SemiBold";
+    src: url("../font//Metropolis-SemiBold.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Header */
+header, footer{
+    background-color: #031B49;
+    background: radial-gradient(circle at 100%, #031B49 50%, #5F4B8B);
+}
+
+header a{
+    color: #000000;
+}
+
+header table{
+    border-collapse: collapse;
+}
+
+header td{
+    border: 2px solid #f0f0f0;
+    background-color: rgba(255, 255, 255, 0.15);
+    font-size: large;
+}
+
+header td:hover{
+    animation: 0.5s brighten;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* ------------- */
+
+h1 span {
+    animation: 3s rgb-alt infinite;
+}
+
+h1, a, h2{
+    font-family: "Metropolis-Bold";
+}
+
+div p, footer p, input{
+    font-family: "Metropolis-Normal";
+}
+
+section > p{
+    font-family: "Metropolis-SemiBold";
+}
+
+
+/* Main */
+.intro{
+    border:2px solid #000000;
+    border-radius: 15px 0 15px 0;
+}
+
+img{
+    border-radius: 5%;
+}
+
+article{
+    border:2px solid black;
+    border-radius: 20px;
+    box-shadow: 4px 3px 2px 1px gray;
+}
+
+input{
+    color: whitesmoke;
+    background: #031B49;
+}
+
+input:hover{
+    background: #5F4B8B;
+}
+
+input:active{
+    transform: translate(1px,1px);
+    background: #5F4B8B;
+    box-shadow: inset 1px 1px 1px 1px #000000;
+}
+/* ------------- */
+
+
+
+/* Footer */
+footer{
+    color: white;
+}
+
+footer a{
+    color: #2eabff;
+}
+/* ------------- */
+
+
+
+@keyframes brighten{
+    from{
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+    to{
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+
+@keyframes rgb-alt{
+    0%{
+        color: #ff0000;
+    }
+    16%{
+        color: #7f7f00;
+    }
+    33%{
+        color: #00ff00;
+    }
+    48%{
+        color: #007f7f;
+    }
+    66%{
+        color: #0000ff;
+    }
+    82%{
+        color: #7f007f;
+    }
+    100%{
+        color: #ff0000;
+    }
+}
