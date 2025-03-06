@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/iut45/Etudiants/o22405974/Téléchargements/junit-4.13.2.jar",
+        "/home/iut45/Etudiants/o22405974/Téléchargements/hamcrest-2.2.jar",
+        "/home/iut45/Etudiants/o22405974/Téléchargements/gson-2.10.1.jar"
+    ]
+}
